@@ -1014,3 +1014,8 @@ LittlerootTown_Text_BirchSomethingToShowYouAtLab:
 	.string "I have something to show you.\n"
 	.string "Let's go to my LAB.$"
 
+LittlerootTown_EventScript_GymDoorTrigger::
+	lockall
+	warp MAP_LITTLEROOT_TOWN_GYM, 0, 9, 19
+	releaseall
+	end
