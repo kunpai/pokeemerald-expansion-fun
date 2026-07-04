@@ -25,11 +25,11 @@ LittlerootTown_Gym_EventScript_WebbPostBattle::
 	end
 
 LittlerootTown_Gym_Text_WebbIntro:
-	.string "Welcome to the Littleroot Gym!\n"
+	.string "Welcome to the Littleroot Gym!\p"
 	.string "My name is WEBB, and I specialize\n"
 	.string "in BUG-type POKéMON.\p"
 	.string "People often overlook BUG POKéMON,\n"
-	.string "but their synergy and speed will\n"
+	.string "but their synergy and speed will\l"
 	.string "tangle you up in no time!\p"
 	.string "Show me what you and your POKéMON\n"
 	.string "can do!$"

@@ -1016,6 +1016,19 @@ LittlerootTown_Text_BirchSomethingToShowYouAtLab:
 
 LittlerootTown_EventScript_GymDoorTrigger::
 	lockall
+	goto_if_unset FLAG_SYS_POKEMON_GET, LittlerootTown_EventScript_GymDoorLocked
 	warp MAP_LITTLEROOT_TOWN_GYM, 0, 9, 19
+	waitstate
 	releaseall
 	end
+
+LittlerootTown_EventScript_GymDoorLocked::
+	msgbox LittlerootTown_Text_GymDoorLocked, MSGBOX_SIGN
+	releaseall
+	end
+
+LittlerootTown_Text_GymDoorLocked:
+	.string "The door is locked…\p"
+	.string "A sign on the door reads:\n"
+	.string "“LITTLEROOT GYM\l"
+	.string "Closed until further notice.”$"
