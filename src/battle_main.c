@@ -1915,9 +1915,7 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                 otId.method = OT_ID_PRESET;
                 otId.value = HIHALF(personalityValue) ^ LOHALF(personalityValue);
             }
-            u32 scaledLevel = partyData[monIndex].lvl + (GetBadgeCount() * 6);
-            if (scaledLevel > MAX_LEVEL)
-                scaledLevel = MAX_LEVEL;
+            u32 scaledLevel = GetScaledTrainerLevel(partyData[monIndex].lvl);
             CreateMon(&party[i], partyData[monIndex].species, scaledLevel, personalityValue, otId);
             SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[monIndex].heldItem);
 

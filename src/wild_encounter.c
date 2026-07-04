@@ -465,9 +465,7 @@ static u8 PickWildMonNature(enum Species species)
 
 void CreateWildMon(enum Species species, u8 level)
 {
-    u32 scaledLevel = level + (GetBadgeCount() * 5);
-    if (scaledLevel > MAX_LEVEL)
-        scaledLevel = MAX_LEVEL;
+    u32 scaledLevel = GetScaledWildMonLevel(level);
 
     ZeroEnemyPartyMons();
     u32 personality = GetMonPersonality(species, GetSynchronizedGender(WILDMON_ORIGIN, species), PickWildMonNature(species), RANDOM_UNOWN_LETTER);

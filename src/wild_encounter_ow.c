@@ -391,9 +391,7 @@ void StartWildBattleWithOWE(struct ScriptContext *ctx)
         level = MIN_LEVEL;
     }
 
-    u32 scaledLevel = level + (GetBadgeCount() * 5);
-    if (scaledLevel > MAX_LEVEL)
-        scaledLevel = MAX_LEVEL;
+    u32 scaledLevel = GetScaledWildMonLevel(level);
 
     ZeroEnemyPartyMons();
     personality = GetMonPersonality(speciesId, gender, NATURE_RANDOM, RANDOM_UNOWN_LETTER);

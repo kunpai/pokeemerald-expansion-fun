@@ -286,3 +286,57 @@ u32 GetBadgeCount(void)
     }
     return count;
 }
+
+u32 GetScaledWildMonLevel(u32 baseLevel)
+{
+    u32 badgeCount = GetBadgeCount();
+    u32 targetAverage;
+    s32 variance = (baseLevel % 4) - 1;
+
+    switch (badgeCount)
+    {
+    case 0: targetAverage = 5; break;
+    case 1: targetAverage = 9; break;
+    case 2: targetAverage = 14; break;
+    case 3: targetAverage = 19; break;
+    case 4: targetAverage = 24; break;
+    case 5: targetAverage = 29; break;
+    case 6: targetAverage = 34; break;
+    case 7: targetAverage = 40; break;
+    default: targetAverage = 47; break;
+    }
+
+    s32 scaled = targetAverage + variance;
+    if (scaled < 2)
+        return 2;
+    if (scaled > 100)
+        return 100;
+    return scaled;
+}
+
+u32 GetScaledTrainerLevel(u32 baseLevel)
+{
+    u32 badgeCount = GetBadgeCount();
+    u32 targetAverage;
+    s32 variance = (baseLevel % 5) - 2;
+
+    switch (badgeCount)
+    {
+    case 0: targetAverage = 10; break;
+    case 1: targetAverage = 15; break;
+    case 2: targetAverage = 20; break;
+    case 3: targetAverage = 25; break;
+    case 4: targetAverage = 30; break;
+    case 5: targetAverage = 35; break;
+    case 6: targetAverage = 40; break;
+    case 7: targetAverage = 47; break;
+    default: targetAverage = 55; break;
+    }
+
+    s32 scaled = targetAverage + variance;
+    if (scaled < 2)
+        return 2;
+    if (scaled > 100)
+        return 100;
+    return scaled;
+}
