@@ -94,8 +94,8 @@
               },
               {
                 "min_level": 2,
-                "max_level": 2,
-                "species": "SPECIES_WURMPLE"
+                "max_level": 3,
+                "species": "SPECIES_ANTIGRAV"
               },
               {
                 "min_level": 3,

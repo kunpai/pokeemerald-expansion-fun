@@ -95,6 +95,22 @@
 #define FLIP    0
 #define NO_FLIP 1
 
+static const struct LevelUpMove sAntigravLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_TACKLE),
+    LEVEL_UP_MOVE( 1, MOVE_CONFUSION),
+    LEVEL_UP_MOVE( 6, MOVE_METAL_CLAW),
+    LEVEL_UP_MOVE(11, MOVE_TELEPORT),
+    LEVEL_UP_MOVE(16, MOVE_PSYBEAM),
+    LEVEL_UP_MOVE(21, MOVE_IRON_DEFENSE),
+    LEVEL_UP_MOVE(26, MOVE_FLASH_CANNON),
+    LEVEL_UP_MOVE(31, MOVE_PSYCHIC),
+    LEVEL_UP_MOVE(36, MOVE_METEOR_MASH),
+    LEVEL_UP_MOVE(41, MOVE_CALM_MIND),
+    LEVEL_UP_MOVE(46, MOVE_RECOVER),
+    LEVEL_UP_MOVE(51, MOVE_GIGA_IMPACT),
+    LEVEL_UP_END
+};
+
 const struct SpeciesInfo gSpeciesInfo[] =
 {
     [SPECIES_NONE] =
@@ -172,6 +188,60 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .shinyPalette = gMonPalette_Egg,
         .iconSprite = gMonIcon_Egg,
         .iconPalIndex = 1,
+    },
+
+    [SPECIES_ANTIGRAV] =
+    {
+        .baseHP        = 90,
+        .baseAttack    = 110,
+        .baseDefense   = 95,
+        .baseSpeed     = 105,
+        .baseSpAttack  = 120,
+        .baseSpDefense = 80,
+        .types = MON_TYPES(TYPE_STEEL, TYPE_PSYCHIC),
+        .catchRate = 45,
+        .expYield = 270,
+        .evYield_SpAttack = 3,
+        .genderRatio = MON_GENDERLESS,
+        .eggCycles = 120,
+        .friendship = STANDARD_FRIENDSHIP,
+        .growthRate = GROWTH_SLOW,
+        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        .abilities = { ABILITY_LEVITATE, ABILITY_NONE, ABILITY_NONE },
+        .bodyColor = BODY_COLOR_GRAY,
+        .speciesName = _("Antigrav"),
+        .cryId = CRY_NONE,
+        .natDexNum = NATIONAL_DEX_NONE,
+        .categoryName = _("Cyber"),
+        .height = 18,
+        .weight = 850,
+        .description = COMPOUND_STRING(
+            "A mysterious cybernetic humanoid created\n"
+            "with anti-gravity capabilities. It emits\n"
+            "a strange aura from its neon blue core\n"
+            "when floating."),
+        .pokemonScale = 256,
+        .pokemonOffset = 0,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+        .frontPic = gMonFrontPic_Antigrav,
+        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .frontPicYOffset = 0,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
+        .frontAnimId = ANIM_GROW_VIBRATE,
+        .frontAnimDelay = 15,
+        .enemyMonElevation = 6,
+        .backPic = gMonBackPic_Antigrav,
+        .backPicSize = MON_COORDS_SIZE(64, 64),
+        .backPicYOffset = 0,
+        .backAnimId = BACK_ANIM_CONCAVE_ARC_SMALL,
+        .palette = gMonPalette_Antigrav,
+        .shinyPalette = gMonShinyPalette_Antigrav,
+        .iconSprite = gMonIcon_Antigrav,
+        .iconPalIndex = 0,
+        FOOTPRINT(Antigrav)
+        .levelUpLearnset = sAntigravLevelUpLearnset,
+        .teachableLearnset = sNoneTeachableLearnset,
     },
 
     /* You may add any custom species below this point based on the following structure: */
