@@ -9,7 +9,17 @@ LittlerootTown_MaysHouse_2F_OnTransition:
 	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 4, PlayersHouse_2F_EventScript_BlockStairsUntilClockIsSet
 	call SecretBase_EventScript_SetDecorationFlags
 	setvar VAR_SECRET_BASE_INITIALIZED, 0
+	call LittlerootTown_MaysHouse_2F_EventScript_CheckHideGiftPokeBall
 	end
+
+LittlerootTown_MaysHouse_2F_EventScript_CheckHideGiftPokeBall::
+	checkplayergender
+	goto_if_eq VAR_RESULT, MALE, LittlerootTown_MaysHouse_2F_EventScript_HideGiftPokeBall
+	return
+
+LittlerootTown_MaysHouse_2F_EventScript_HideGiftPokeBall::
+	setflag FLAG_HIDE_PLAYERS_HOUSE_GIFT_POKEBALL
+	return
 
 LittlerootTown_MaysHouse_2F_EventScript_CheckShouldUpdateMayPos::
 	goto_if_set FLAG_MET_RIVAL_LILYCOVE, LittlerootTown_MaysHouse_2F_EventScript_TryUpdateMayPos

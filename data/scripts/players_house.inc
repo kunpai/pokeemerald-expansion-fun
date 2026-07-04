@@ -671,3 +671,81 @@ PlayersHouse_1F_Movement_PlayerApproachTVForLatiFemale:
 EventScript_RunningShoesManual::
 	msgbox PlayersHouse_1F_Text_RunningShoesManual, MSGBOX_SIGN
 	end
+
+PlayersHouse_2F_EventScript_GiftPokeBall::
+	lockall
+	msgbox PlayersHouse_2F_Text_LookAtGiftPokeBall, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, PlayersHouse_2F_EventScript_LeaveGiftPokeBall
+	setvar VAR_TEMP_TRANSFERRED_SPECIES, SPECIES_EEVEE
+	givemon SPECIES_EEVEE, 5
+	goto_if_eq VAR_RESULT, MON_GIVEN_TO_PARTY, PlayersHouse_2F_EventScript_ReceiveEeveeParty
+	goto_if_eq VAR_RESULT, MON_GIVEN_TO_PC, PlayersHouse_2F_EventScript_ReceiveEeveePC
+	goto Common_EventScript_NoMoreRoomForPokemon
+	end
+
+PlayersHouse_2F_EventScript_LeaveGiftPokeBall::
+	msgbox PlayersHouse_2F_Text_LeftGiftPokeBall, MSGBOX_DEFAULT
+	releaseall
+	end
+
+PlayersHouse_2F_EventScript_ReceiveEeveeParty::
+	call PlayersHouse_2F_EventScript_ReceivedEeveeFanfare
+	msgbox gText_NicknameThisPokemon, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, PlayersHouse_2F_EventScript_ReceivedEevee
+	call Common_EventScript_GetGiftMonPartySlot
+	call Common_EventScript_NameReceivedPartyMon
+	goto PlayersHouse_2F_EventScript_ReceivedEevee
+	end
+
+PlayersHouse_2F_EventScript_ReceiveEeveePC::
+	call PlayersHouse_2F_EventScript_ReceivedEeveeFanfare
+	msgbox gText_NicknameThisPokemon, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, PlayersHouse_2F_EventScript_EeveeTransferredToPC
+	call Common_EventScript_NameReceivedBoxMon
+	goto PlayersHouse_2F_EventScript_EeveeTransferredToPC
+	end
+
+PlayersHouse_2F_EventScript_EeveeTransferredToPC::
+	call Common_EventScript_TransferredToPC
+	goto PlayersHouse_2F_EventScript_ReceivedEevee
+	end
+
+PlayersHouse_2F_EventScript_ReceivedEeveeFanfare::
+	bufferspeciesname STR_VAR_2, SPECIES_EEVEE
+	playfanfare MUS_OBTAIN_ITEM
+	message PlayersHouse_2F_Text_ObtainedEevee
+	waitmessage
+	waitfanfare
+	return
+
+PlayersHouse_2F_EventScript_ReceivedEevee::
+	msgbox PlayersHouse_2F_Text_DadNote, MSGBOX_DEFAULT
+	setflag FLAG_HIDE_PLAYERS_HOUSE_GIFT_POKEBALL
+	setflag FLAG_SYS_POKEMON_GET
+	setflag FLAG_SYS_POKEDEX_GET
+	setflag FLAG_SYS_B_DASH
+	removeobject VAR_LAST_TALKED
+	releaseall
+	end
+
+PlayersHouse_2F_Text_LookAtGiftPokeBall:
+	.string "There's a POKé BALL here, with a note\n"
+	.string "resting next to it.\p"
+	.string "Would you like to take it?$"
+
+PlayersHouse_2F_Text_LeftGiftPokeBall:
+	.string "You decided to leave the POKé BALL\n"
+	.string "on the floor.$"
+
+PlayersHouse_2F_Text_ObtainedEevee:
+	.string "{PLAYER} obtained the EEVEE!$"
+
+PlayersHouse_2F_Text_DadNote:
+	.string "There is a handwritten note:\p"
+	.string "“Dear {PLAYER},\n"
+	.string "I left this POKéMON here for you\l"
+	.string "so you can start your own journey.\p"
+	.string "I also registered a POKéDEX for you\n"
+	.string "and left some RUNNING SHOES.\p"
+	.string "Work hard and have fun!\n"
+	.string "Love, DAD”$"

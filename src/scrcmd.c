@@ -2317,6 +2317,7 @@ bool8 ScrCmd_checkfieldmove(struct ScriptContext *ctx)
         return FALSE;
 
     move = FieldMove_GetMoveId(fieldMove);
+    // 1. Try to find a mon that actually knows the move
     for (u32 i = 0; i < PARTY_SIZE; i++)
     {
         enum Species species = GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_SPECIES);
@@ -2326,7 +2327,21 @@ bool8 ScrCmd_checkfieldmove(struct ScriptContext *ctx)
         {
             gSpecialVar_Result = i;
             gSpecialVar_0x8004 = species;
+            return FALSE;
+        }
+    }
+
+    // 2. Fallback: If no mon knows it, use the first non-egg mon in the party
+    for (u32 i = 0; i < PARTY_SIZE; i++)
+    {
+        enum Species species = GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_SPECIES);
+        if (!species)
             break;
+        if (!GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_IS_EGG))
+        {
+            gSpecialVar_Result = i;
+            gSpecialVar_0x8004 = species;
+            return FALSE;
         }
     }
 
