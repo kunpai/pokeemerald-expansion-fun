@@ -282,16 +282,11 @@ LittlerootTown_EventScript_GoodLuck::
 
 LittlerootTown_EventScript_NeedPokemonTriggerLeft::
 	lockall
-	goto_if_set FLAG_SYS_POKEMON_GET, LittlerootTown_EventScript_AllowThrough
 	applymovement LOCALID_LITTLEROOT_TWIN, LittlerootTown_Movement_TwinApproachPlayerLeft
 	waitmovement 0
 	call LittlerootTown_EventScript_DangerousWithoutPokemon
 	applymovement LOCALID_LITTLEROOT_TWIN, LittlerootTown_Movement_TwinReturnLeft
 	waitmovement 0
-	releaseall
-	end
-
-LittlerootTown_EventScript_AllowThrough::
 	releaseall
 	end
 
@@ -345,7 +340,6 @@ LittlerootTown_Movement_PushPlayerBackFromRoute:
 
 LittlerootTown_EventScript_NeedPokemonTriggerRight::
 	lockall
-	goto_if_set FLAG_SYS_POKEMON_GET, LittlerootTown_EventScript_AllowThrough
 	applymovement LOCALID_LITTLEROOT_TWIN, LittlerootTown_Movement_TwinApproachPlayerRight
 	waitmovement 0
 	call LittlerootTown_EventScript_DangerousWithoutPokemon
