@@ -722,7 +722,6 @@ PlayersHouse_2F_EventScript_ReceivedEevee::
 	msgbox PlayersHouse_2F_Text_DadNote, MSGBOX_DEFAULT
 	setflag FLAG_HIDE_PLAYERS_HOUSE_GIFT_POKEBALL
 	setflag FLAG_SYS_POKEMON_GET
-	setflag FLAG_SYS_POKEDEX_GET
 	setflag FLAG_SYS_B_DASH
 	removeobject VAR_LAST_TALKED
 	releaseall
@@ -745,7 +744,6 @@ PlayersHouse_2F_Text_DadNote:
 	.string "“Dear {PLAYER},\n"
 	.string "I left this POKéMON here for you\l"
 	.string "so you can start your own journey.\p"
-	.string "I also registered a POKéDEX for you\n"
-	.string "and left some RUNNING SHOES.\p"
+	.string "I also left some RUNNING SHOES.\p"
 	.string "Work hard and have fun!\n"
 	.string "Love, DAD”$"
