@@ -274,3 +274,15 @@ bool8 FlagGet(u16 id)
 
     return TRUE;
 }
+
+u32 GetBadgeCount(void)
+{
+    u32 i;
+    u32 count = 0;
+    for (i = FLAG_BADGE01_GET; i <= FLAG_BADGE08_GET; i++)
+    {
+        if (FlagGet(i))
+            count++;
+    }
+    return count;
+}
