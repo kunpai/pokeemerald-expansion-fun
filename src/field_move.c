@@ -10,47 +10,47 @@
 
 static bool32 IsFieldMoveUnlocked_Cut(void)
 {
-    return TRUE;
+    return FlagGet(FLAG_SYS_POKEDEX_GET);
 }
 
 static bool32 IsFieldMoveUnlocked_Flash(void)
 {
-    return TRUE;
+    return FlagGet(FLAG_SYS_POKEDEX_GET);
 }
 
 static bool32 IsFieldMoveUnlocked_RockSmash(void)
 {
-    return TRUE;
+    return FlagGet(FLAG_SYS_POKEDEX_GET);
 }
 
 static bool32 IsFieldMoveUnlocked_Strength(void)
 {
-    return TRUE;
+    return FlagGet(FLAG_SYS_POKEDEX_GET);
 }
 
 static bool32 IsFieldMoveUnlocked_Surf(void)
 {
-    return TRUE;
+    return FlagGet(FLAG_SYS_POKEDEX_GET);
 }
 
 static bool32 IsFieldMoveUnlocked_Fly(void)
 {
-    return TRUE;
+    return FlagGet(FLAG_SYS_POKEDEX_GET);
 }
 
 static bool32 IsFieldMoveUnlocked_Dive(void)
 {
-    return TRUE;
+    return FlagGet(FLAG_SYS_POKEDEX_GET);
 }
 
 static bool32 IsFieldMoveUnlocked_Waterfall(void)
 {
-    return TRUE;
+    return FlagGet(FLAG_SYS_POKEDEX_GET);
 }
 
 static bool32 IsFieldMoveUnlocked_RockClimb(void)
 {
-    return TRUE;
+    return FlagGet(FLAG_SYS_POKEDEX_GET);
 }
 
 static bool32 IsFieldMoveUnlocked_Teleport(void)
@@ -85,7 +85,7 @@ static bool32 IsFieldMoveUnlocked_SweetScent(void)
 
 static bool32 IsFieldMoveUnlocked_Defog(void)
 {
-    return TRUE;
+    return FlagGet(FLAG_SYS_POKEDEX_GET);
 }
 
 const struct FieldMoveInfo gFieldMoveInfo[FIELD_MOVES_COUNT] =

@@ -18,7 +18,6 @@ Route101_EventScript_HideMapNamePopup::
 
 Route101_EventScript_StartBirchRescue::
 	lockall
-	goto_if_set FLAG_SYS_POKEMON_GET, Route101_EventScript_BypassRescue
 	playbgm MUS_HELP, TRUE
 	msgbox Route101_Text_HelpMe, MSGBOX_DEFAULT
 	closemessage
@@ -39,15 +38,6 @@ Route101_EventScript_StartBirchRescue::
 	msgbox Route101_Text_PleaseHelp, MSGBOX_DEFAULT
 	closemessage
 	setvar VAR_ROUTE101_STATE, 2
-	releaseall
-	end
-
-Route101_EventScript_BypassRescue::
-	setvar VAR_ROUTE101_STATE, 3
-	setflag FLAG_HIDE_ROUTE_101_BIRCH_ZIGZAGOON_BATTLE
-	setflag FLAG_HIDE_ROUTE_101_BIRCH_STARTERS_BAG
-	setflag FLAG_HIDE_ROUTE_101_ZIGZAGOON
-	setflag FLAG_HIDE_ROUTE_101_BIRCH
 	releaseall
 	end
 

@@ -1552,6 +1552,19 @@ bool8 IsStarterInParty(void)
     return FALSE;
 }
 
+u16 GetStarterMonPartySlot(void)
+{
+    u8 i;
+    u16 starter = GetStarterPokemon(VarGet(VAR_STARTER_MON));
+    u8 partyCount = CalculatePlayerPartyCount();
+    for (i = 0; i < partyCount; i++)
+    {
+        if (GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_SPECIES_OR_EGG) == starter)
+            return i;
+    }
+    return PARTY_SIZE;
+}
+
 bool8 ScriptCheckFreePokemonStorageSpace(void)
 {
     return CheckFreePokemonStorageSpace();

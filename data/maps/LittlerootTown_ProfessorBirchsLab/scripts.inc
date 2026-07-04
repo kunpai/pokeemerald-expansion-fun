@@ -117,7 +117,7 @@ LittlerootTown_ProfessorBirchsLab_EventScript_GiveStarterEvent::
 	end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_NicknameStarter::
-	setvar VAR_0x8004, 0
+	specialvar VAR_0x8004, GetStarterMonPartySlot
 	call Common_EventScript_NameReceivedPartyMon
 	goto LittlerootTown_ProfessorBirchsLab_EventScript_GoSeeRival
 	end

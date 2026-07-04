@@ -472,6 +472,7 @@ LittlerootTown_EventScript_GiveRunningShoesTrigger5::
 	end
 
 LittlerootTown_EventScript_GiveRunningShoesTrigger::
+	goto_if_set FLAG_SYS_B_DASH, LittlerootTown_EventScript_SkipRunningShoes
 	checkplayergender
 	call_if_eq VAR_RESULT, MALE, LittlerootTown_EventScript_MomNoticePlayerMale
 	call_if_eq VAR_RESULT, FEMALE, LittlerootTown_EventScript_MomNoticePlayerFemale
@@ -488,6 +489,11 @@ LittlerootTown_EventScript_GiveRunningShoesTrigger::
 	call_if_eq VAR_RESULT, MALE, LittlerootTown_EventScript_MomReturnHomeMale
 	call_if_eq VAR_RESULT, FEMALE, LittlerootTown_EventScript_MomReturnHomeFemale
 	goto LittlerootTown_EventScript_SetReceivedRunningShoes
+	end
+
+LittlerootTown_EventScript_SkipRunningShoes::
+	setvar VAR_LITTLEROOT_TOWN_STATE, 4
+	releaseall
 	end
 
 LittlerootTown_EventScript_SetHomeDoorCoordsMale::
