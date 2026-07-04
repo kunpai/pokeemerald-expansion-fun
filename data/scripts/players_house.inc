@@ -716,6 +716,7 @@ PlayersHouse_2F_EventScript_ReceivedEeveeFanfare::
 	message PlayersHouse_2F_Text_ObtainedEevee
 	waitmessage
 	waitfanfare
+	bufferspeciesname STR_VAR_1, SPECIES_EEVEE
 	return
 
 PlayersHouse_2F_EventScript_ReceivedEevee::
