@@ -16877,3 +16877,37 @@ Double Battle: No
 Kyogre
 Level: 5
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+
+=== TRAINER_LITTLEROOT_LEADER ===
+Name: WEBB
+Class: Leader
+Pic: Bug Catcher
+Gender: Male
+Music: Male
+Items: Potion / Potion
+Double Battle: No
+AI: Basic Trainer
+
+Nincada
+Level: 12
+IVs: 10 HP / 10 Atk / 10 Def / 10 SpA / 10 SpD / 10 Spe
+- Scratch
+- Harden
+- Leech Life
+- Sand Attack
+
+Dustox
+Level: 13
+IVs: 10 HP / 10 Atk / 10 Def / 10 SpA / 10 SpD / 10 Spe
+- Tackle
+- Poison Powder
+- Gust
+- Protect
+
+Beautifly @ Oran Berry
+Level: 15
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Absorb
+- Gust
+- Stun Spore
+- Mega Drain
