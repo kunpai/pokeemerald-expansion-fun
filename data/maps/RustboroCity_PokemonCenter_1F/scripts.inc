@@ -21,7 +21,7 @@ RustboroCity_PokemonCenter_1F_EventScript_Man::
 	end
 
 RustboroCity_PokemonCenter_1F_EventScript_Boy::
-	msgbox RustboroCity_PokemonCenter_1F_Text_MaleAndFemalePokemon, MSGBOX_NPC
+	goto StarterGifts_EventScript_Gen1Gen2NPC
 	end
 
 RustboroCity_PokemonCenter_1F_EventScript_Girl::

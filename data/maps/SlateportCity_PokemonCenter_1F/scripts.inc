@@ -21,7 +21,7 @@ SlateportCity_PokemonCenter_1F_EventScript_Sailor::
 	end
 
 SlateportCity_PokemonCenter_1F_EventScript_Woman::
-	msgbox SlateportCity_PokemonCenter_1F_Text_TradedMonWithFriend, MSGBOX_NPC
+	goto StarterGifts_EventScript_Gen4Gen5NPC
 	end
 
 SlateportCity_PokemonCenter_1F_Text_RaiseDifferentTypesOfPokemon:

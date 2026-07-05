@@ -32,7 +32,7 @@ LilycoveCity_PokemonCenter_1F_EventScript_Nurse::
 	end
 
 LilycoveCity_PokemonCenter_1F_EventScript_Boy::
-	msgbox LilycoveCity_PokemonCenter_1F_Text_HowManyKindsOfPokemon, MSGBOX_NPC
+	goto StarterGifts_EventScript_Gen6Gen7NPC
 	end
 
 LilycoveCity_PokemonCenter_1F_EventScript_Maniac::

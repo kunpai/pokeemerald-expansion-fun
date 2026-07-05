@@ -20,7 +20,7 @@ MossdeepCity_PokemonCenter_1F_EventScript_Woman::
 	end
 
 MossdeepCity_PokemonCenter_1F_EventScript_Girl::
-	msgbox MossdeepCity_PokemonCenter_1F_Text_AbilitiesMightChangeMoves, MSGBOX_NPC
+	goto StarterGifts_EventScript_Gen8Gen9NPC
 	end
 
 MossdeepCity_PokemonCenter_1F_Text_GymLeaderDuoFormidable:
