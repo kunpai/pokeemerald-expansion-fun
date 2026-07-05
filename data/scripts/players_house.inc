@@ -676,8 +676,8 @@ PlayersHouse_2F_EventScript_GiftPokeBall::
 	lockall
 	msgbox PlayersHouse_2F_Text_LookAtGiftPokeBall, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, PlayersHouse_2F_EventScript_LeaveGiftPokeBall
-	setvar VAR_TEMP_TRANSFERRED_SPECIES, SPECIES_EEVEE
-	givemon SPECIES_EEVEE, 5
+	setvar VAR_TEMP_TRANSFERRED_SPECIES, SPECIES_CHUSSU
+	givemon SPECIES_CHUSSU, 5
 	goto_if_eq VAR_RESULT, MON_GIVEN_TO_PARTY, PlayersHouse_2F_EventScript_ReceiveEeveeParty
 	goto_if_eq VAR_RESULT, MON_GIVEN_TO_PC, PlayersHouse_2F_EventScript_ReceiveEeveePC
 	goto Common_EventScript_NoMoreRoomForPokemon
@@ -711,12 +711,12 @@ PlayersHouse_2F_EventScript_EeveeTransferredToPC::
 	end
 
 PlayersHouse_2F_EventScript_ReceivedEeveeFanfare::
-	bufferspeciesname STR_VAR_2, SPECIES_EEVEE
+	bufferspeciesname STR_VAR_2, SPECIES_CHUSSU
 	playfanfare MUS_OBTAIN_ITEM
 	message PlayersHouse_2F_Text_ObtainedEevee
 	waitmessage
 	waitfanfare
-	bufferspeciesname STR_VAR_1, SPECIES_EEVEE
+	bufferspeciesname STR_VAR_1, SPECIES_CHUSSU
 	return
 
 PlayersHouse_2F_EventScript_ReceivedEevee::
@@ -741,7 +741,7 @@ PlayersHouse_2F_Text_LeftGiftPokeBall:
 	.string "on the floor.$"
 
 PlayersHouse_2F_Text_ObtainedEevee:
-	.string "{PLAYER} obtained the EEVEE!$"
+	.string "{PLAYER} obtained CHUSSU!$"
 
 PlayersHouse_2F_Text_DadNote:
 	.string "There is a handwritten note:\p"
