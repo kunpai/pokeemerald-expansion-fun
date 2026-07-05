@@ -290,53 +290,67 @@ u32 GetBadgeCount(void)
 u32 GetScaledWildMonLevel(u32 baseLevel)
 {
     u32 badgeCount = GetBadgeCount();
-    u32 targetAverage;
-    s32 variance = (baseLevel % 4) - 1;
+    u32 minTarget, maxTarget;
 
     switch (badgeCount)
     {
-    case 0: targetAverage = 5; break;
-    case 1: targetAverage = 9; break;
-    case 2: targetAverage = 14; break;
-    case 3: targetAverage = 19; break;
-    case 4: targetAverage = 24; break;
-    case 5: targetAverage = 29; break;
-    case 6: targetAverage = 34; break;
-    case 7: targetAverage = 40; break;
-    default: targetAverage = 47; break;
+    case 0: minTarget = 3; maxTarget = 13; break;
+    case 1: minTarget = 7; maxTarget = 19; break;
+    case 2: minTarget = 12; maxTarget = 26; break;
+    case 3: minTarget = 16; maxTarget = 34; break;
+    case 4: minTarget = 20; maxTarget = 40; break;
+    case 5: minTarget = 24; maxTarget = 48; break;
+    case 6: minTarget = 28; maxTarget = 56; break;
+    case 7: minTarget = 33; maxTarget = 65; break;
+    default: minTarget = 40; maxTarget = 76; break;
     }
 
-    s32 scaled = targetAverage + variance;
-    if (scaled < 2)
+    if (baseLevel <= 2)
+        return minTarget;
+    if (baseLevel >= 50)
+        return maxTarget;
+
+    u32 scaled = minTarget + ((baseLevel - 2) * (maxTarget - minTarget)) / 48;
+    s32 variance = (baseLevel % 3) - 1;
+    s32 finalLevel = (s32)scaled + variance;
+
+    if (finalLevel < 2)
         return 2;
-    if (scaled > 100)
+    if (finalLevel > 100)
         return 100;
-    return scaled;
+    return finalLevel;
 }
 
 u32 GetScaledTrainerLevel(u32 baseLevel)
 {
     u32 badgeCount = GetBadgeCount();
-    u32 targetAverage;
-    s32 variance = (baseLevel % 5) - 2;
+    u32 minTarget, maxTarget;
 
     switch (badgeCount)
     {
-    case 0: targetAverage = 10; break;
-    case 1: targetAverage = 15; break;
-    case 2: targetAverage = 20; break;
-    case 3: targetAverage = 25; break;
-    case 4: targetAverage = 30; break;
-    case 5: targetAverage = 35; break;
-    case 6: targetAverage = 40; break;
-    case 7: targetAverage = 47; break;
-    default: targetAverage = 55; break;
+    case 0: minTarget = 5; maxTarget = 14; break;
+    case 1: minTarget = 10; maxTarget = 20; break;
+    case 2: minTarget = 15; maxTarget = 28; break;
+    case 3: minTarget = 20; maxTarget = 36; break;
+    case 4: minTarget = 25; maxTarget = 43; break;
+    case 5: minTarget = 30; maxTarget = 51; break;
+    case 6: minTarget = 35; maxTarget = 60; break;
+    case 7: minTarget = 40; maxTarget = 70; break;
+    default: minTarget = 47; maxTarget = 80; break;
     }
 
-    s32 scaled = targetAverage + variance;
-    if (scaled < 2)
+    if (baseLevel <= 2)
+        return minTarget;
+    if (baseLevel >= 50)
+        return maxTarget;
+
+    u32 scaled = minTarget + ((baseLevel - 2) * (maxTarget - minTarget)) / 48;
+    s32 variance = (baseLevel % 3) - 1;
+    s32 finalLevel = (s32)scaled + variance;
+
+    if (finalLevel < 2)
         return 2;
-    if (scaled > 100)
+    if (finalLevel > 100)
         return 100;
-    return scaled;
+    return finalLevel;
 }
