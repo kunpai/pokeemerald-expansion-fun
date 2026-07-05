@@ -222,8 +222,17 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .palette = gMonPalette_Chussu,
         .shinyPalette = gMonShinyPalette_Chussu,
         .iconSprite = gMonIcon_Chussu,
-        .iconPalIndex = 1,
+        .iconPalIndex = 2,
         FOOTPRINT(Chussu)
+        OVERWORLD(
+            sPicTable_Chussu,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Chussu,
+            gShinyOverworldPalette_Chussu
+        )
         .levelUpLearnset = sChussuLevelUpLearnset,
         .teachableLearnset = sChussuTeachableLearnset,
     },
