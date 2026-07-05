@@ -1010,14 +1010,30 @@ static void TryUpdateGymLeaderRematchFromTrainer(void)
         UpdateGymLeaderRematch();
 }
 
+static u16 GetBaseTrainerId(u16 trainerId)
+{
+    u32 i, j;
+    for (i = REMATCH_ROXANNE; i <= REMATCH_JUAN; i++)
+    {
+        for (j = 0; j < 5; j++)
+        {
+            if (gRematchTable[i].trainerIds[j] == trainerId)
+            {
+                return gRematchTable[i].trainerIds[0];
+            }
+        }
+    }
+    return trainerId;
+}
+
 static u16 GetTrainerAFlag(void)
 {
-    return TRAINER_FLAGS_START + TRAINER_BATTLE_PARAM.opponentA;
+    return TRAINER_FLAGS_START + GetBaseTrainerId(TRAINER_BATTLE_PARAM.opponentA);
 }
 
 static u16 GetTrainerBFlag(void)
 {
-    return TRAINER_FLAGS_START + TRAINER_BATTLE_PARAM.opponentB;
+    return TRAINER_FLAGS_START + GetBaseTrainerId(TRAINER_BATTLE_PARAM.opponentB);
 }
 
 static bool32 IsPlayerDefeated(u32 battleOutcome)
@@ -1113,9 +1129,34 @@ void SetMapVarsToTrainerB(void)
     }
 }
 
+static u16 GetGymLeaderRematchTrainerId(u16 trainerId)
+{
+    u32 i;
+    u32 badgeCount = GetBadgeCount();
+    
+    for (i = REMATCH_ROXANNE; i <= REMATCH_JUAN; i++)
+    {
+        if (gRematchTable[i].trainerIds[0] == trainerId)
+        {
+            u32 teamIndex = 0;
+            if (badgeCount >= 7) teamIndex = 4;
+            else if (badgeCount >= 6) teamIndex = 3;
+            else if (badgeCount >= 4) teamIndex = 2;
+            else if (badgeCount >= 2) teamIndex = 1;
+            
+            u16 newTrainerId = gRematchTable[i].trainerIds[teamIndex];
+            if (newTrainerId != 0)
+                return newTrainerId;
+        }
+    }
+    return trainerId;
+}
+
 // expects parameters have been loaded correctly with TrainerBattleLoadArgs
 const u8 *BattleSetup_ConfigureTrainerBattle(const u8 *data)
 {
+    TRAINER_BATTLE_PARAM.opponentA = GetGymLeaderRematchTrainerId(TRAINER_BATTLE_PARAM.opponentA);
+
     switch (TRAINER_BATTLE_PARAM.mode)
     {
     case TRAINER_BATTLE_SINGLE_NO_INTRO_TEXT:
@@ -1286,17 +1327,17 @@ static void UNUSED SetBattledTrainerFlag(void)
 
 bool8 HasTrainerBeenFought(u16 trainerId)
 {
-    return FlagGet(TRAINER_FLAGS_START + trainerId);
+    return FlagGet(TRAINER_FLAGS_START + GetBaseTrainerId(trainerId));
 }
 
 void SetTrainerFlag(u16 trainerId)
 {
-    FlagSet(TRAINER_FLAGS_START + trainerId);
+    FlagSet(TRAINER_FLAGS_START + GetBaseTrainerId(trainerId));
 }
 
 void ClearTrainerFlag(u16 trainerId)
 {
-    FlagClear(TRAINER_FLAGS_START + trainerId);
+    FlagClear(TRAINER_FLAGS_START + GetBaseTrainerId(trainerId));
 }
 
 void BattleSetup_StartTrainerBattle(void)
