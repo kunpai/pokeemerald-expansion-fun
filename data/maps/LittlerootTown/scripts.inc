@@ -86,11 +86,15 @@ LittlerootTown_EventScript_SetTwinGuardingRoutePos::
 	return
 
 LittlerootTown_EventScript_SetMomStandingInFrontOfDoorPos::
+	goto_if_set FLAG_SYS_B_DASH, LittlerootTown_EventScript_NoMomSpawn
 	clearflag FLAG_HIDE_LITTLEROOT_TOWN_MOM_OUTSIDE
 	setobjectmovementtype LOCALID_LITTLEROOT_MOM, MOVEMENT_TYPE_FACE_DOWN
 	checkplayergender
 	call_if_eq VAR_RESULT, MALE, LittlerootTown_EventScript_SetMomInFrontOfDoorMale
 	call_if_eq VAR_RESULT, FEMALE, LittlerootTown_EventScript_SetMomInFrontOfDoorFemale
+	return
+
+LittlerootTown_EventScript_NoMomSpawn::
 	return
 
 LittlerootTown_EventScript_SetMomInFrontOfDoorMale::
@@ -486,6 +490,8 @@ LittlerootTown_EventScript_GiveRunningShoesTrigger::
 	end
 
 LittlerootTown_EventScript_SkipRunningShoes::
+	removeobject LOCALID_LITTLEROOT_MOM
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_MOM_OUTSIDE
 	setvar VAR_LITTLEROOT_TOWN_STATE, 4
 	releaseall
 	end
