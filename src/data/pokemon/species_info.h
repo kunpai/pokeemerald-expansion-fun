@@ -174,6 +174,60 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .iconPalIndex = 1,
     },
 
+    [SPECIES_CHUSSU] =
+    {
+        .baseHP        = 80,
+        .baseAttack    = 120,
+        .baseDefense   = 70,
+        .baseSpeed     = 115,
+        .baseSpAttack  = 60,
+        .baseSpDefense = 75,
+        .types = MON_TYPES(TYPE_NORMAL, TYPE_FIGHTING),
+        .catchRate = 45,
+        .expYield = 180,
+        .evYield_Attack = 2,
+        .evYield_Speed = 1,
+        .genderRatio = PERCENT_FEMALE(50),
+        .eggCycles = 20,
+        .friendship = STANDARD_FRIENDSHIP,
+        .growthRate = GROWTH_MEDIUM_FAST,
+        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_HUMAN_LIKE),
+        .abilities = { ABILITY_SOUNDPROOF, ABILITY_INNER_FOCUS, ABILITY_IRON_FIST },
+        .bodyColor = BODY_COLOR_GRAY,
+        .speciesName = _("Chussu"),
+        .cryId = CRY_NONE,
+        .natDexNum = NATIONAL_DEX_CHUSSU,
+        .categoryName = _("Lofi Fighter"),
+        .height = 17,
+        .weight = 720,
+        .description = COMPOUND_STRING(
+            "It trains hard while listening to lofi hip\n"
+            "hop. Its headphones block all external\n"
+            "distractions, allowing it to execute punches\n"
+            "with absolute focus and precision."),
+        .pokemonScale = 256,
+        .pokemonOffset = 0,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+        .frontPic = gMonFrontPic_Chussu,
+        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .frontPicYOffset = 0,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
+        .frontAnimId = ANIM_GROW_VIBRATE,
+        .enemyMonElevation = 0,
+        .backPic = gMonBackPic_Chussu,
+        .backPicSize = MON_COORDS_SIZE(64, 64),
+        .backPicYOffset = 0,
+        .backAnimId = BACK_ANIM_NONE,
+        .palette = gMonPalette_Chussu,
+        .shinyPalette = gMonShinyPalette_Chussu,
+        .iconSprite = gMonIcon_Chussu,
+        .iconPalIndex = 1,
+        FOOTPRINT(Chussu)
+        .levelUpLearnset = sChussuLevelUpLearnset,
+        .teachableLearnset = sChussuTeachableLearnset,
+    },
+
     /* You may add any custom species below this point based on the following structure: */
 
     /*

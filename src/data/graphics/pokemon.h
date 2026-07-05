@@ -27503,3 +27503,12 @@ const u32 gObjectEventPic_Substitute[] = INCGFX_COMP("graphics/pokemon/question_
     const u32 gMonFrontPic_Egg[] = INCGFX_U32("graphics/pokemon/egg/anim_front.png", ".4bpp.smol");
     const u16 gMonPalette_Egg[] = INCGFX_U16("graphics/pokemon/egg/normal.pal", ".gbapal");
     const u8 gMonIcon_Egg[] = INCGFX_U8("graphics/pokemon/egg/icon.png", ".4bpp");
+
+    const u32 gMonFrontPic_Chussu[] = INCGFX_U32("graphics/pokemon/chussu/anim_front.png", ".4bpp.smol");
+    const u32 gMonBackPic_Chussu[] = INCGFX_U32("graphics/pokemon/chussu/back.png", ".4bpp.smol");
+    const u16 gMonPalette_Chussu[] = INCGFX_U16("graphics/pokemon/chussu/normal.pal", ".gbapal");
+    const u16 gMonShinyPalette_Chussu[] = INCGFX_U16("graphics/pokemon/chussu/shiny.pal", ".gbapal");
+    const u8 gMonIcon_Chussu[] = INCGFX_U8("graphics/pokemon/chussu/icon.png", ".4bpp");
+#if P_FOOTPRINTS
+    const u8 gMonFootprint_Chussu[] = INCGFX_U8("graphics/pokemon/chussu/footprint.png", ".1bpp");
+#endif
