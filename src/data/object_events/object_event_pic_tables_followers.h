@@ -6733,4 +6733,12 @@ static const struct SpriteFrameImage sPicTable_Chussu[] = {
     overworld_ascending_frames(gObjectEventPic_Chussu, 4, 4),
 };
 
+static const struct SpriteFrameImage sPicTable_Slenderman[] = {
+    overworld_ascending_frames(gObjectEventPic_Chussu, 4, 4),
+};
+
+static const struct SpriteFrameImage sPicTable_Naruto[] = {
+    overworld_ascending_frames(gObjectEventPic_Naruto, 4, 4),
+};
+
 #endif //OW_POKEMON_OBJECT_EVENTS

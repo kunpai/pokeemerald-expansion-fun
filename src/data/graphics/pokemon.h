@@ -27519,3 +27519,28 @@ const u32 gObjectEventPic_Substitute[] = INCGFX_COMP("graphics/pokemon/question_
     const u16 gShinyOverworldPalette_Chussu[] = INCGFX_U16("graphics/pokemon/chussu/overworld_shiny.pal", ".gbapal");
 #endif
 #endif
+
+    const u32 gMonFrontPic_Slenderman[] = INCGFX_U32("graphics/pokemon/slenderman/anim_front.png", ".4bpp.smol");
+    const u32 gMonBackPic_Slenderman[] = INCGFX_U32("graphics/pokemon/slenderman/back.png", ".4bpp.smol");
+    const u16 gMonPalette_Slenderman[] = INCGFX_U16("graphics/pokemon/slenderman/normal.pal", ".gbapal");
+    const u16 gMonShinyPalette_Slenderman[] = INCGFX_U16("graphics/pokemon/slenderman/shiny.pal", ".gbapal");
+    const u8 gMonIcon_Slenderman[] = INCGFX_U8("graphics/pokemon/slenderman/icon.png", ".4bpp");
+#if P_FOOTPRINTS
+    const u8 gMonFootprint_Slenderman[] = INCGFX_U8("graphics/pokemon/slenderman/footprint.png", ".1bpp");
+#endif
+
+    const u32 gMonFrontPic_Naruto[] = INCGFX_U32("graphics/pokemon/naruto/anim_front.png", ".4bpp.smol");
+    const u32 gMonBackPic_Naruto[] = INCGFX_U32("graphics/pokemon/naruto/back.png", ".4bpp.smol");
+    const u16 gMonPalette_Naruto[] = INCGFX_U16("graphics/pokemon/naruto/normal.pal", ".gbapal");
+    const u16 gMonShinyPalette_Naruto[] = INCGFX_U16("graphics/pokemon/naruto/shiny.pal", ".gbapal");
+    const u8 gMonIcon_Naruto[] = INCGFX_U8("graphics/pokemon/naruto/icon.png", ".4bpp");
+#if P_FOOTPRINTS
+    const u8 gMonFootprint_Naruto[] = INCGFX_U8("graphics/pokemon/naruto/footprint.png", ".1bpp");
+#endif
+#if OW_POKEMON_OBJECT_EVENTS
+    const u32 gObjectEventPic_Naruto[] = INCGFX_COMP("graphics/pokemon/naruto/overworld.png", ".4bpp", "-mwidth 4 -mheight 4");
+#if OW_PKMN_OBJECTS_SHARE_PALETTES == FALSE
+    const u16 gOverworldPalette_Naruto[] = INCGFX_U16("graphics/pokemon/naruto/overworld_normal.pal", ".gbapal");
+    const u16 gShinyOverworldPalette_Naruto[] = INCGFX_U16("graphics/pokemon/naruto/overworld_shiny.pal", ".gbapal");
+#endif
+#endif
