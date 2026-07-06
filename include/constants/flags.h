@@ -56,7 +56,7 @@
 #define FLAG_GIFT_STARTER_GEN6_GEN7    0x22
 #define FLAG_GIFT_STARTER_GEN8_GEN9    0x23
 #define FLAG_ORAS_DOWSING    0x24 // Unused Flag
-#define FLAG_UNUSED_0x025    0x25 // Unused Flag
+#define FLAG_DEFEATED_PORTAL_NARUTO   0x25 // Unused Flag
 #define FLAG_UNUSED_0x026    0x26 // Unused Flag
 #define FLAG_UNUSED_0x027    0x27 // Unused Flag
 #define FLAG_UNUSED_0x028    0x28 // Unused Flag
