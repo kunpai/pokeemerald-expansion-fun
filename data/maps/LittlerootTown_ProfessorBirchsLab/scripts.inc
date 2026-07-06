@@ -754,7 +754,13 @@ LittlerootTown_ProfessorBirchsLab_Text_ExplainPokedex:
 	.string "Whenever my kid catches a rare POKéMON\n"
 	.string "and records its data in the POKéDEX,\l"
 	.string "why, {RIVAL} looks for me while I'm out\l"
-	.string "doing fieldwork, and shows me.$"
+	.string "doing fieldwork, and shows me.\p"
+	.string "Oh, and remember what I said about those\n"
+	.string "space-time portals I've been researching?\p"
+	.string "If you manage to scan any of those alien\n"
+	.string "creatures from other dimensions,\l"
+	.string "the POKéDEX should record them too!\l"
+	.string "Please find those rifts and let me know!$"
 
 LittlerootTown_ProfessorBirchsLab_Text_CountlessPokemonAwait:
 	.string "PROF. BIRCH: Countless POKéMON\n"
