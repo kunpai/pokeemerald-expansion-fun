@@ -11002,3 +11002,44 @@ void SetValuesOnFaint(enum BattlerId battler)
         gSideTimers[B_SIDE_OPPONENT].retaliateTimer = 2;
     }
 }
+
+bool32 IsBossTrainerClass(u8 classId)
+{
+    switch (classId)
+    {
+    case TRAINER_CLASS_ELITE_FOUR:
+    case TRAINER_CLASS_ELITE_FOUR_FRLG:
+    case TRAINER_CLASS_LEADER:
+    case TRAINER_CLASS_LEADER_FRLG:
+    case TRAINER_CLASS_CHAMPION:
+    case TRAINER_CLASS_CHAMPION_FRLG:
+    case TRAINER_CLASS_RIVAL:
+    case TRAINER_CLASS_RIVAL_EARLY_FRLG:
+    case TRAINER_CLASS_RIVAL_LATE_FRLG:
+    case TRAINER_CLASS_AQUA_LEADER:
+    case TRAINER_CLASS_MAGMA_LEADER:
+    case TRAINER_CLASS_BOSS_FRLG:
+    case TRAINER_CLASS_AQUA_ADMIN:
+    case TRAINER_CLASS_MAGMA_ADMIN:
+    case TRAINER_CLASS_SALON_MAIDEN:
+    case TRAINER_CLASS_DOME_ACE:
+    case TRAINER_CLASS_PALACE_MAVEN:
+    case TRAINER_CLASS_ARENA_TYCOON:
+    case TRAINER_CLASS_FACTORY_HEAD:
+    case TRAINER_CLASS_PIKE_QUEEN:
+    case TRAINER_CLASS_PYRAMID_KING:
+        return TRUE;
+    default:
+        return FALSE;
+    }
+}
+
+u16 GetTrainerIdOfBattler(enum BattlerId battler)
+{
+    if (gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS)
+    {
+        if (GetBattlerPosition(battler) == B_POSITION_OPPONENT_RIGHT)
+            return TRAINER_BATTLE_PARAM.opponentB;
+    }
+    return TRAINER_BATTLE_PARAM.opponentA;
+}

@@ -1,6 +1,8 @@
 #include "global.h"
 #include "item_use.h"
 #include "battle.h"
+#include "battle_util.h"
+#include "battle_script_commands.h"
 #include "battle_anim.h"
 #include "battle_stat_change.h"
 #include "battle_pyramid.h"
@@ -1398,8 +1400,21 @@ void ItemUseInBattle_BagMenu(u8 taskId)
     }
     else
     {
+        bool32 skipRemove = FALSE;
         PlaySE(SE_SELECT);
-        if (!GetItemImportance(gSpecialVar_ItemId) && !(B_TRY_CATCH_TRAINER_BALL >= GEN_4 && (GetItemBattleUsage(gSpecialVar_ItemId) == EFFECT_ITEM_THROW_BALL) && (gBattleTypeFlags & BATTLE_TYPE_TRAINER)))
+        if (B_TRY_CATCH_TRAINER_BALL >= GEN_4
+         && (GetItemBattleUsage(gSpecialVar_ItemId) == EFFECT_ITEM_THROW_BALL)
+         && (gBattleTypeFlags & BATTLE_TYPE_TRAINER))
+        {
+            u16 trainerId = GetTrainerIdOfBattler(GetCatchingBattler());
+            skipRemove = TRUE;
+            if ((gSpecialVar_ItemId == ITEM_MAGMA_BALL || gSpecialVar_ItemId == ITEM_AQUA_BALL)
+             && (trainerId >= TRAINERS_COUNT || !IsBossTrainerClass(GetTrainerClassFromId(trainerId))))
+            {
+                skipRemove = FALSE;
+            }
+        }
+        if (!GetItemImportance(gSpecialVar_ItemId) && !skipRemove)
             RemoveUsedItem();
         ScheduleBgCopyTilemapToVram(2);
         if (CurrentBattlePyramidLocation() == PYRAMID_LOCATION_NONE)

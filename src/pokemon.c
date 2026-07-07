@@ -2981,13 +2981,25 @@ void CopyMon(void *dest, void *src, size_t size)
     memcpy(dest, src, size);
 }
 
+static void ChangeBoxMonOT(struct BoxPokemon *boxMon, const u8 *otName, u8 otGender, const u8 *otIdBytes)
+{
+    DecryptBoxMon(boxMon);
+
+    for (s32 i = 0; i < PLAYER_NAME_LENGTH; i++)
+        boxMon->otName[i] = otName[i];
+
+    GetSubstruct3(boxMon)->otGender = otGender;
+    boxMon->otId = otIdBytes[0] + (otIdBytes[1] << 8) + (otIdBytes[2] << 16) + (otIdBytes[3] << 24);
+
+    boxMon->checksum = CalculateBoxMonChecksum(boxMon);
+    EncryptBoxMon(boxMon);
+}
+
 u8 GiveCapturedMonToPlayer(struct Pokemon *mon)
 {
     s32 i;
 
-    SetMonData(mon, MON_DATA_OT_NAME, gSaveBlock2Ptr->playerName);
-    SetMonData(mon, MON_DATA_OT_GENDER, &gSaveBlock2Ptr->playerGender);
-    SetMonData(mon, MON_DATA_OT_ID, gSaveBlock2Ptr->playerTrainerId);
+    ChangeBoxMonOT(&mon->box, gSaveBlock2Ptr->playerName, gSaveBlock2Ptr->playerGender, gSaveBlock2Ptr->playerTrainerId);
 
     for (i = 0; i < PARTY_SIZE; i++)
     {

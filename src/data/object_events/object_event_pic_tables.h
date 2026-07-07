@@ -1209,6 +1209,12 @@ static const struct SpriteFrameImage sPicTable_Ball_BEAST[] = {
 static const struct SpriteFrameImage sPicTable_Ball_STRANGE[] = {
     POKEBALL_PIC_FRAMES(Strange),
 };
+static const struct SpriteFrameImage sPicTable_Ball_MAGMA[] = {
+    POKEBALL_PIC_FRAMES(Magma),
+};
+static const struct SpriteFrameImage sPicTable_Ball_AQUA[] = {
+    POKEBALL_PIC_FRAMES(Aqua),
+};
 #endif //OW_FOLLOWERS_POKEBALLS
 
 static const struct SpriteFrameImage sPicTable_DeoxysOld[] = {

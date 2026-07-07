@@ -420,6 +420,8 @@ const u32 gObjectEventPic_SportBall[] = INCGFX_U32("graphics/object_events/pics/
 const u32 gObjectEventPic_DreamBall[] = INCGFX_U32("graphics/object_events/pics/misc/ball_dream.png", ".4bpp", "-mwidth 2 -mheight 4");
 const u32 gObjectEventPic_BeastBall[] = INCGFX_U32("graphics/object_events/pics/misc/ball_beast.png", ".4bpp", "-mwidth 2 -mheight 4");
 const u32 gObjectEventPic_StrangeBall[] = INCGFX_U32("graphics/object_events/pics/misc/ball_strange.png", ".4bpp", "-mwidth 2 -mheight 4");
+const u32 gObjectEventPic_MagmaBall[] = INCGFX_U32("graphics/object_events/pics/misc/ball_magma.png", ".4bpp", "-mwidth 2 -mheight 4");
+const u32 gObjectEventPic_AquaBall[] = INCGFX_U32("graphics/object_events/pics/misc/ball_aqua.png", ".4bpp", "-mwidth 2 -mheight 4");
 #endif //OW_FOLLOWERS_POKEBALLS
 
 #if OW_FOLLOWERS_POKEBALLS
@@ -457,6 +459,8 @@ const u16 gObjectEventPal_DreamBall[] = INCGFX_U16("graphics/object_events/pics/
 const u16 gObjectEventPal_BeastBall[] = INCGFX_U16("graphics/object_events/pics/misc/ball_beast.png", ".gbapal");
 // Gen VIII
 const u16 gObjectEventPal_StrangeBall[] = INCGFX_U16("graphics/object_events/pics/misc/ball_strange.png", ".gbapal");
+const u16 gObjectEventPal_MagmaBall[] = INCGFX_U16("graphics/object_events/pics/misc/ball_magma.png", ".gbapal");
+const u16 gObjectEventPal_AquaBall[] = INCGFX_U16("graphics/object_events/pics/misc/ball_aqua.png", ".gbapal");
 #endif //OW_FOLLOWERS_POKEBALLS
 
 const u32 gFieldEffectObjectPic_CaveDust[] = INCGFX_U32("graphics/field_effects/pics/cave_dust.png", ".4bpp");

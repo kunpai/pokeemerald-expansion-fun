@@ -89,6 +89,12 @@ const u16 gItemIconPalette_BeastBall[] = INCGFX_U16("graphics/items/icon_palette
 const u32 gItemIcon_CherishBall[] = INCGFX_U32("graphics/items/icons/cherish_ball.png", ".4bpp.smol");
 const u16 gItemIconPalette_CherishBall[] = INCGFX_U16("graphics/items/icon_palettes/cherish_ball.pal", ".gbapal");
 
+const u32 gItemIcon_MagmaBall[] = INCGFX_U32("graphics/items/icons/magma_ball.png", ".4bpp.smol");
+const u16 gItemIconPalette_MagmaBall[] = INCGFX_U16("graphics/items/icon_palettes/magma_ball.pal", ".gbapal");
+
+const u32 gItemIcon_AquaBall[] = INCGFX_U32("graphics/items/icons/aqua_ball.png", ".4bpp.smol");
+const u16 gItemIconPalette_AquaBall[] = INCGFX_U16("graphics/items/icon_palettes/aqua_ball.pal", ".gbapal");
+
 // Medicine
 
 const u32 gItemIcon_Potion[] = INCGFX_U32("graphics/items/icons/potion.png", ".4bpp.smol");

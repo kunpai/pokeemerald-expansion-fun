@@ -50,5 +50,7 @@ const struct ObjectEventGraphicsInfo gPokeballGraphics[POKEBALL_COUNT] = {
     POKEBALL_GFX_INFO(BEAST),
     // Gen VIII
     POKEBALL_GFX_INFO(STRANGE),
+    POKEBALL_GFX_INFO(MAGMA),
+    POKEBALL_GFX_INFO(AQUA),
 };
 #endif //OW_FOLLOWERS_POKEBALLS

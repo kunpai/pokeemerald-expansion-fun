@@ -209,6 +209,11 @@ BattleScript_TryNicknameCaughtMon::
 BattleScript_GiveCaughtMonEnd::
 	givecaughtmon BattleScript_SuccessBallThrowEnd
 BattleScript_SuccessBallThrowEnd::
+	jumpifnotbattletype BATTLE_TYPE_TRAINER, BattleScript_SuccessBallThrowRealEnd
+	getmoneyreward
+	printstring STRINGID_PLAYERGOTMONEY
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_SuccessBallThrowRealEnd::
 	setbyte gBattleOutcome, B_OUTCOME_CAUGHT
 	finishturn
 

@@ -15832,6 +15832,38 @@ const struct ItemInfo gItemsInfo[] =
         .iconPic = gItemIcon_PokeshiDoll,
         .iconPalette = gItemIconPalette_PokeshiDoll,
     },
+
+    [ITEM_MAGMA_BALL] =
+    {
+        .name = ITEM_NAME("Magma Ball"),
+        .price = 1000,
+        .description = COMPOUND_STRING(
+            "A Poké Ball that\n"
+            "catches a trainer's\n"
+            "Pokémon."),
+        .pocket = POCKET_POKE_BALLS,
+        .type = ITEM_USE_BAG_MENU,
+        .battleUsage = EFFECT_ITEM_THROW_BALL,
+        .secondaryId = BALL_MAGMA,
+        .iconPic = gItemIcon_MagmaBall,
+        .iconPalette = gItemIconPalette_MagmaBall,
+    },
+
+    [ITEM_AQUA_BALL] =
+    {
+        .name = ITEM_NAME("Aqua Ball"),
+        .price = 1000,
+        .description = COMPOUND_STRING(
+            "A Poké Ball that\n"
+            "catches a trainer's\n"
+            "Pokémon."),
+        .pocket = POCKET_POKE_BALLS,
+        .type = ITEM_USE_BAG_MENU,
+        .battleUsage = EFFECT_ITEM_THROW_BALL,
+        .secondaryId = BALL_AQUA,
+        .iconPic = gItemIcon_AquaBall,
+        .iconPalette = gItemIconPalette_AquaBall,
+    },
 };
 
 #undef ITEM_NAME

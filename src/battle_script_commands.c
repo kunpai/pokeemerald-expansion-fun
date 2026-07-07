@@ -5854,11 +5854,15 @@ static void Cmd_getmoneyreward(void)
     u32 money;
     u8 sPartyLevel = 1;
 
-    if (gBattleOutcome == B_OUTCOME_WON)
+    if (gBattleOutcome == B_OUTCOME_WON || (gBattleTypeFlags & BATTLE_TYPE_TRAINER))
     {
-        money = GetTrainerMoneyToGive(TRAINER_BATTLE_PARAM.opponentA);
-        if (gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS)
-            money += GetTrainerMoneyToGive(TRAINER_BATTLE_PARAM.opponentB);
+        money = 0;
+        if (TRAINER_BATTLE_PARAM.opponentA < TRAINERS_COUNT)
+        {
+            money = GetTrainerMoneyToGive(TRAINER_BATTLE_PARAM.opponentA);
+            if (gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS && TRAINER_BATTLE_PARAM.opponentB < TRAINERS_COUNT)
+                money += GetTrainerMoneyToGive(TRAINER_BATTLE_PARAM.opponentB);
+        }
         AddMoney(&gSaveBlock1Ptr->money, money);
     }
     else
@@ -10027,7 +10031,10 @@ static void Cmd_handleballthrow(void)
         MarkBattlerForControllerExec(gBattlerAttacker);
         gBattlescriptCurrInstr = BattleScript_GhostBallDodge;
     }
-    else if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
+    else if (gBattleTypeFlags & BATTLE_TYPE_TRAINER
+          && !((gLastUsedItem == ITEM_MAGMA_BALL || gLastUsedItem == ITEM_AQUA_BALL)
+            && (GetTrainerIdOfBattler(gBattlerTarget) >= TRAINERS_COUNT
+             || !IsBossTrainerClass(GetTrainerClassFromId(GetTrainerIdOfBattler(gBattlerTarget))))))
     {
         BtlController_EmitBallThrowAnim(gBattlerAttacker, B_COMM_TO_CONTROLLER, BALL_TRAINER_BLOCK);
         MarkBattlerForControllerExec(gBattlerAttacker);

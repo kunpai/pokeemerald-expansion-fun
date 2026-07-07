@@ -66,8 +66,8 @@ TEST("CreateNPCTrainerPartyForTrainer generates customized Pokémon")
     EXPECT(GetMonData(&testParty[1], MON_DATA_SPATK_EV, 0) == 0);
     EXPECT(GetMonData(&testParty[1], MON_DATA_SPDEF_EV, 0) == 0);
 
-    EXPECT(GetMonData(&testParty[0], MON_DATA_LEVEL, 0) == 67);
-    EXPECT(GetMonData(&testParty[1], MON_DATA_LEVEL, 0) == 5);
+    EXPECT(GetMonData(&testParty[0], MON_DATA_LEVEL, 0) == 14);
+    EXPECT(GetMonData(&testParty[1], MON_DATA_LEVEL, 0) == 6);
 
     EXPECT(GetMonData(&testParty[0], MON_DATA_MOVE1, 0) == MOVE_AIR_SLASH);
     EXPECT(GetMonData(&testParty[0], MON_DATA_MOVE2, 0) == MOVE_BARRIER);
@@ -146,7 +146,7 @@ TEST("Difficulty changes which party is used for enemy trainer if defined for th
     u32 currTrainer = 5;
     CreateNPCTrainerPartyFromTrainer(testParty, GetTrainerStructFromId(currTrainer), TRUE, BATTLE_TYPE_TRAINER);
     EXPECT(GetMonData(&testParty[0], MON_DATA_SPECIES) == SPECIES_METAPOD);
-    EXPECT(GetMonData(&testParty[0], MON_DATA_LEVEL) == 1);
+    EXPECT(GetMonData(&testParty[0], MON_DATA_LEVEL) == 5);
     Free(testParty);
     SetCurrentDifficultyLevel(DIFFICULTY_NORMAL);
 }
@@ -158,7 +158,7 @@ TEST("Difficulty changes which party is used for enemy trainer if defined for th
     u32 currTrainer = 5;
     CreateNPCTrainerPartyFromTrainer(testParty, GetTrainerStructFromId(currTrainer), TRUE, BATTLE_TYPE_TRAINER);
     EXPECT(GetMonData(&testParty[0], MON_DATA_SPECIES) == SPECIES_ARCEUS);
-    EXPECT(GetMonData(&testParty[0], MON_DATA_LEVEL) == 99);
+    EXPECT(GetMonData(&testParty[0], MON_DATA_LEVEL) == 14);
     Free(testParty);
     SetCurrentDifficultyLevel(DIFFICULTY_NORMAL);
 }
@@ -170,7 +170,7 @@ TEST("Difficulty changes which party is used for enemy trainer if defined for th
     u32 currTrainer = 5;
     CreateNPCTrainerPartyFromTrainer(testParty, GetTrainerStructFromId(currTrainer), TRUE, BATTLE_TYPE_TRAINER);
     EXPECT(GetMonData(&testParty[0], MON_DATA_SPECIES) == SPECIES_MEWTWO);
-    EXPECT(GetMonData(&testParty[0], MON_DATA_LEVEL) == 50);
+    EXPECT(GetMonData(&testParty[0], MON_DATA_LEVEL) == 14);
     Free(testParty);
 }
 
@@ -181,7 +181,7 @@ TEST("Difficulty default to Normal if the partner doesn't have a member for the 
     u32 currTrainer = TRAINER_PARTNER(1);
     CreateNPCTrainerPartyFromTrainer(testParty, GetTrainerStructFromId(currTrainer), TRUE, BATTLE_TYPE_TRAINER);
     EXPECT(GetMonData(&testParty[0], MON_DATA_SPECIES) == SPECIES_METANG);
-    EXPECT(GetMonData(&testParty[0], MON_DATA_LEVEL) == 42);
+    EXPECT(GetMonData(&testParty[0], MON_DATA_LEVEL) == 11);
     Free(testParty);
     SetCurrentDifficultyLevel(DIFFICULTY_NORMAL);
 }
@@ -193,7 +193,7 @@ TEST("Difficulty changes which party is used for partner if defined for the diff
     u32 currTrainer = TRAINER_PARTNER(1);
     CreateNPCTrainerPartyFromTrainer(testParty, GetTrainerStructFromId(currTrainer), TRUE, BATTLE_TYPE_TRAINER);
     EXPECT(GetMonData(&testParty[0], MON_DATA_SPECIES) == SPECIES_METAPOD);
-    EXPECT(GetMonData(&testParty[0], MON_DATA_LEVEL) == 1);
+    EXPECT(GetMonData(&testParty[0], MON_DATA_LEVEL) == 5);
     Free(testParty);
     SetCurrentDifficultyLevel(DIFFICULTY_NORMAL);
 }
@@ -205,7 +205,7 @@ TEST("Difficulty changes which party is used for partner if defined for the diff
     u32 currTrainer = TRAINER_PARTNER(1);
     CreateNPCTrainerPartyFromTrainer(testParty, GetTrainerStructFromId(currTrainer), TRUE, BATTLE_TYPE_TRAINER);
     EXPECT(GetMonData(&testParty[0], MON_DATA_SPECIES) == SPECIES_ARCEUS);
-    EXPECT(GetMonData(&testParty[0], MON_DATA_LEVEL) == 99);
+    EXPECT(GetMonData(&testParty[0], MON_DATA_LEVEL) == 14);
     Free(testParty);
     SetCurrentDifficultyLevel(DIFFICULTY_NORMAL);
 }
@@ -217,7 +217,7 @@ TEST("Difficulty changes which party is used for partner if defined for the diff
     u32 currTrainer = TRAINER_PARTNER(1);
     CreateNPCTrainerPartyFromTrainer(testParty, GetTrainerStructFromId(currTrainer), TRUE, BATTLE_TYPE_TRAINER);
     EXPECT(GetMonData(&testParty[0], MON_DATA_SPECIES) == SPECIES_METANG);
-    EXPECT(GetMonData(&testParty[0], MON_DATA_LEVEL) == 42);
+    EXPECT(GetMonData(&testParty[0], MON_DATA_LEVEL) == 11);
     Free(testParty);
 }
 
