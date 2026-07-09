@@ -2981,12 +2981,29 @@ void CopyMon(void *dest, void *src, size_t size)
     memcpy(dest, src, size);
 }
 
+u8 GetCatchingBattler(void);
+u16 GetTrainerIdOfBattler(enum BattlerId battler);
+
 static void ChangeBoxMonOT(struct BoxPokemon *boxMon, const u8 *otName, u8 otGender, const u8 *otIdBytes)
 {
+    s32 i;
+    bool8 reachedEnd = FALSE;
+
     DecryptBoxMon(boxMon);
 
-    for (s32 i = 0; i < PLAYER_NAME_LENGTH; i++)
-        boxMon->otName[i] = otName[i];
+    for (i = 0; i < PLAYER_NAME_LENGTH; i++)
+    {
+        if (!reachedEnd)
+        {
+            boxMon->otName[i] = otName[i];
+            if (otName[i] == EOS)
+                reachedEnd = TRUE;
+        }
+        else
+        {
+            boxMon->otName[i] = EOS;
+        }
+    }
 
     GetSubstruct3(boxMon)->otGender = otGender;
     boxMon->otId = otIdBytes[0] + (otIdBytes[1] << 8) + (otIdBytes[2] << 16) + (otIdBytes[3] << 24);
@@ -2995,11 +3012,111 @@ static void ChangeBoxMonOT(struct BoxPokemon *boxMon, const u8 *otName, u8 otGen
     EncryptBoxMon(boxMon);
 }
 
+// Returns the level-appropriate pre-evolution for a species.
+// If a Pokémon is below the EVO_LEVEL threshold that would produce
+// the given species, it recursively de-evolves to find the right form.
+// e.g. Level 10 Swellow -> Taillow (Taillow evolves at 22)
+enum Species GetAppropriateSpeciesForLevel(enum Species species, u8 level)
+{
+    s32 i, j;
+    enum Species preEvo = SPECIES_NONE;
+    u16 evoLevel = 0;
+
+    // Search all species to find which one evolves into 'species' via EVO_LEVEL
+    for (i = SPECIES_BULBASAUR; i < NUM_SPECIES; i++)
+    {
+        if (!IsSpeciesEnabled(i))
+            continue;
+
+        const struct Evolution *evolutions = gSpeciesInfo[SanitizeSpeciesId(i)].evolutions;
+        if (evolutions == NULL)
+            continue;
+
+        for (j = 0; evolutions[j].method != EVOLUTIONS_END; j++)
+        {
+            if (evolutions[j].method == EVO_LEVEL
+             && SanitizeSpeciesId(evolutions[j].targetSpecies) == species)
+            {
+                preEvo = i;
+                evoLevel = evolutions[j].param;
+                break;
+            }
+        }
+        if (preEvo != SPECIES_NONE)
+            break;
+    }
+
+    // If no EVO_LEVEL pre-evolution exists, the species is fine as-is
+    if (preEvo == SPECIES_NONE)
+        return species;
+
+    // If the mon's level is below the evolution level, de-evolve
+    if (level < evoLevel)
+    {
+        // Recurse — the pre-evolution might also be too evolved
+        // (e.g. level 20 Salamence -> Shelgon -> Bagon)
+        return GetAppropriateSpeciesForLevel(preEvo, level);
+    }
+
+    // Level is at or above the evo threshold, species is appropriate
+    return species;
+}
+
 u8 GiveCapturedMonToPlayer(struct Pokemon *mon)
 {
     s32 i;
 
-    ChangeBoxMonOT(&mon->box, gSaveBlock2Ptr->playerName, gSaveBlock2Ptr->playerGender, gSaveBlock2Ptr->playerTrainerId);
+    if (gMain.inBattle && (gBattleTypeFlags & BATTLE_TYPE_TRAINER))
+    {
+        u8 battler = GetCatchingBattler();
+        u16 trainerId = GetTrainerIdOfBattler(battler);
+
+        if (trainerId < TRAINERS_COUNT)
+        {
+            const struct Trainer *trainer = GetTrainerStructFromId(trainerId);
+            u32 currentOtId = mon->box.otId;
+            u8 otIdBytes[4];
+
+            otIdBytes[0] = currentOtId & 0xFF;
+            otIdBytes[1] = (currentOtId >> 8) & 0xFF;
+            otIdBytes[2] = (currentOtId >> 16) & 0xFF;
+            otIdBytes[3] = (currentOtId >> 24) & 0xFF;
+
+            ChangeBoxMonOT(&mon->box, trainer->trainerName, trainer->gender, otIdBytes);
+        }
+        else
+        {
+            ChangeBoxMonOT(&mon->box, gSaveBlock2Ptr->playerName, gSaveBlock2Ptr->playerGender, gSaveBlock2Ptr->playerTrainerId);
+        }
+
+        // De-evolve captured Pokémon if its level is too low for its species
+        {
+            enum Species currentSpecies = GetMonData(mon, MON_DATA_SPECIES, 0);
+            u8 level = GetMonData(mon, MON_DATA_LEVEL, 0);
+            enum Species appropriateSpecies = GetAppropriateSpeciesForLevel(currentSpecies, level);
+
+            if (appropriateSpecies != currentSpecies)
+            {
+                u8 speciesName[POKEMON_NAME_LENGTH + 1];
+
+                SetMonData(mon, MON_DATA_SPECIES, &appropriateSpecies);
+
+                // Update nickname to the new species name
+                StringCopy(speciesName, GetSpeciesName(appropriateSpecies));
+                SetMonData(mon, MON_DATA_NICKNAME, speciesName);
+
+                // Give the mon the correct learnset for its level and new species
+                GiveMonInitialMoveset(mon);
+
+                // Recalculate stats for the new species
+                CalculateMonStats(mon);
+            }
+        }
+    }
+    else
+    {
+        ChangeBoxMonOT(&mon->box, gSaveBlock2Ptr->playerName, gSaveBlock2Ptr->playerGender, gSaveBlock2Ptr->playerTrainerId);
+    }
 
     for (i = 0; i < PARTY_SIZE; i++)
     {
