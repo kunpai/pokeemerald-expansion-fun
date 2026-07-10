@@ -91,7 +91,7 @@ static void CB2_HandleStartMultiBattle(void);
 static void CB2_HandleStartBattle(void);
 static void TryCorrectShedinjaLanguage(struct Pokemon *mon);
 static enum BattleTrainer GetBattlerTrainerFromParty(struct Pokemon *party);
-static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum);
+u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum);
 static void BattleMainCB1(void);
 static void CB2_EndLinkBattle(void);
 static void EndLinkBattleInSteps(void);
@@ -2005,7 +2005,73 @@ static enum BattleTrainer GetBattlerTrainerFromParty(struct Pokemon *party)
     return ((party - gParties[B_TRAINER_PLAYER]) / PARTY_SIZE);
 }
 
-static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
+static enum Species GetReplacementSpecies(enum Species originalSpecies, u32 seed)
+{
+    u8 type1 = gSpeciesInfo[originalSpecies].types[0];
+    u8 type2 = gSpeciesInfo[originalSpecies].types[1];
+    u16 candidateSpecies[NUM_SPECIES];
+    u32 candidateCount = 0;
+    u32 i;
+
+    for (i = 1; i < NUM_SPECIES; i++)
+    {
+        if (!IsSpeciesEnabled(i))
+            continue;
+        if (gSpeciesInfo[i].isRestrictedLegendary || gSpeciesInfo[i].isSubLegendary || gSpeciesInfo[i].isMythical || gSpeciesInfo[i].isUltraBeast)
+            continue;
+        if (i == originalSpecies)
+            continue;
+        if (gSpeciesInfo[i].types[0] == type1 || gSpeciesInfo[i].types[1] == type1
+            || (type2 != TYPE_NONE && (gSpeciesInfo[i].types[0] == type2 || gSpeciesInfo[i].types[1] == type2)))
+        {
+            candidateSpecies[candidateCount++] = i;
+        }
+    }
+
+    if (candidateCount == 0)
+        return originalSpecies;
+
+    return candidateSpecies[seed % candidateCount];
+}
+
+static void ReplaceCaughtRematchMons(struct Pokemon *party, u8 partySize, u16 trainerId)
+{
+    s32 rematchIdx = TrainerIdToRematchTableId(gRematchTable, trainerId);
+    if (rematchIdx != -1)
+    {
+        const struct Trainer *baseTrainer = GetTrainerStructFromId(gRematchTable[rematchIdx].trainerIds[0]);
+        u32 i, k;
+
+        for (i = 0; i < partySize; i++)
+        {
+            enum Species currentSpecies = GetMonData(&party[i], MON_DATA_SPECIES);
+            if (currentSpecies == SPECIES_NONE)
+                continue;
+
+            enum Species currentBaseSpecies = GetBaseSpecies(currentSpecies);
+
+            for (k = 0; k < baseTrainer->partySize; k++)
+            {
+                if (gSaveBlock1Ptr->caughtRematchMons[rematchIdx] & (1 << k))
+                {
+                    enum Species baseTrainerSpecies = GetBaseSpecies(baseTrainer->party[k].species);
+                    if (currentBaseSpecies == baseTrainerSpecies)
+                    {
+                        u32 seed = trainerId + i;
+                        u16 replacementSpecies = GetReplacementSpecies(currentSpecies, seed);
+                        if (replacementSpecies == SPECIES_NONE)
+                            replacementSpecies = currentSpecies;
+                        SetMonData(&party[i], MON_DATA_SPECIES, &replacementSpecies);
+                        CalculateMonStats(&party[i]);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+}
+
+u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
 {
     u8 retVal;
     bool32 halfTeam = (BattleSideHasTwoTrainers(GetBattlerTrainerFromParty(party) & BIT_SIDE) && !AreMultiPartiesFullTeams());
@@ -2030,6 +2096,9 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
     {
         retVal = CreateNPCTrainerPartyFromTrainer(party, GetTrainerStructFromId(trainerNum), halfTeam, gBattleTypeFlags);
     }
+
+    ReplaceCaughtRematchMons(party, retVal, trainerNum);
+
     return retVal;
 }
 

@@ -6848,6 +6848,19 @@ enum Species GetSpeciesPreEvolution(enum Species species)
     return SPECIES_NONE;
 }
 
+enum Species GetBaseSpecies(enum Species species)
+{
+    enum Species preEvo = species;
+    while (TRUE)
+    {
+        enum Species nextPreEvo = GetSpeciesPreEvolution(preEvo);
+        if (nextPreEvo == SPECIES_NONE || nextPreEvo == preEvo)
+            break;
+        preEvo = nextPreEvo;
+    }
+    return preEvo;
+}
+
 void UpdateDaysPassedSinceFormChange(u16 days)
 {
     u32 i;

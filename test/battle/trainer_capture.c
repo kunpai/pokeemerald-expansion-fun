@@ -3,6 +3,7 @@
 #include "event_data.h"
 #include "battle_setup.h"
 #include "item_use.h"
+#include "battle_main.h"
 
 SINGLE_BATTLE_TEST("Capture: Magma Ball successfully catches a basic trainer's Pokémon and prevents Bad Eggs")
 {
@@ -88,3 +89,53 @@ DOUBLE_BATTLE_TEST("Capture: catching is allowed in double battles if only one o
         EXPECT(CannotUseItemsInBattle(ITEM_MAGMA_BALL, NULL) == FALSE);
     }
 }
+
+SINGLE_BATTLE_TEST("Capture: Caught Pokemon does not appear in rematches and is replaced")
+{
+    GIVEN {
+        gBattleTestRunnerState->data.recordedBattle.opponentA = TRAINER_ROSE_1;
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_ZIGZAGOON);
+        OPPONENT(SPECIES_EEVEE);
+    } WHEN {
+        TURN { USE_ITEM(player, ITEM_MAGMA_BALL, WITH_RNG(RNG_BALLTHROW_SHAKE, 0)); }
+    } THEN {
+        u32 rematchIdx = TrainerIdToRematchTableId(gRematchTable, TRAINER_ROSE_1);
+        EXPECT_EQ(rematchIdx, REMATCH_ROSE);
+
+        bool8 savedDebugBattle = gIsDebugBattle;
+        u32 savedBattleFlags = gBattleTypeFlags;
+        u16 savedDifficulty = VarGet(B_VAR_DIFFICULTY);
+        gIsDebugBattle = FALSE;
+        gBattleTypeFlags = BATTLE_TYPE_TRAINER;
+        VarSet(B_VAR_DIFFICULTY, DIFFICULTY_NORMAL);
+
+        ZeroPartyMons(gParties[B_TRAINER_OPPONENT_A]);
+        gSaveBlock1Ptr->caughtRematchMons[rematchIdx] = 0;
+        u8 retVal2 = CreateNPCTrainerParty(gParties[B_TRAINER_OPPONENT_A], TRAINER_ROSE_2);
+        EXPECT_EQ(retVal2, 2);
+        EXPECT_EQ(GetMonData(&gParties[B_TRAINER_OPPONENT_A][0], MON_DATA_SPECIES), SPECIES_ZIGZAGOON);
+
+        // Now set the caught bit
+        gSaveBlock1Ptr->caughtRematchMons[rematchIdx] = 1; // bit 0
+
+        ZeroPartyMons(gParties[B_TRAINER_OPPONENT_A]);
+        u8 retVal = CreateNPCTrainerParty(gParties[B_TRAINER_OPPONENT_A], TRAINER_ROSE_2);
+        EXPECT_EQ(retVal, 2);
+
+        u16 partySpecies = GetMonData(&gParties[B_TRAINER_OPPONENT_A][0], MON_DATA_SPECIES);
+        EXPECT_NE(partySpecies, SPECIES_ZIGZAGOON);
+        EXPECT_NE(partySpecies, SPECIES_NONE);
+
+        u8 originalType1 = gSpeciesInfo[SPECIES_ZIGZAGOON].types[0];
+        u8 originalType2 = gSpeciesInfo[SPECIES_ZIGZAGOON].types[1];
+        u8 newType1 = gSpeciesInfo[partySpecies].types[0];
+        u8 newType2 = gSpeciesInfo[partySpecies].types[1];
+        EXPECT(newType1 == originalType1 || newType1 == originalType2 || newType2 == originalType1 || newType2 == originalType2);
+
+        gIsDebugBattle = savedDebugBattle;
+        gBattleTypeFlags = savedBattleFlags;
+        VarSet(B_VAR_DIFFICULTY, savedDifficulty);
+    }
+}
+

@@ -9698,6 +9698,39 @@ static void FinalizeCapture(void)
         u32 friendship = (B_FRIEND_BALL_MODIFIER >= GEN_8 ? 150 : 200);
         SetMonData(caughtMon, MON_DATA_FRIENDSHIP, &friendship);
     }
+
+    if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
+    {
+        u16 trainerId = GetTrainerIdOfBattler(gBattlerTarget);
+        s32 rematchIdx = TrainerIdToRematchTableId(gRematchTable, trainerId);
+        if (rematchIdx != -1)
+        {
+            enum Species caughtSpecies = gBattleMons[gBattlerTarget].species;
+            enum Species baseSpecies = GetBaseSpecies(caughtSpecies);
+            const struct Trainer *baseTrainer = GetTrainerStructFromId(gRematchTable[rematchIdx].trainerIds[0]);
+            u32 k;
+            bool32 found = FALSE;
+
+            for (k = 0; k < baseTrainer->partySize; k++)
+            {
+                enum Species baseTrainerSpecies = GetBaseSpecies(baseTrainer->party[k].species);
+                if (baseSpecies == baseTrainerSpecies)
+                {
+                    gSaveBlock1Ptr->caughtRematchMons[rematchIdx] |= (1 << k);
+                    found = TRUE;
+                    break;
+                }
+            }
+            if (!found)
+            {
+                u8 partySlot = gBattlerPartyIndexes[gBattlerTarget];
+                if (partySlot < 6)
+                {
+                    gSaveBlock1Ptr->caughtRematchMons[rematchIdx] |= (1 << partySlot);
+                }
+            }
+        }
+    }
 }
 
 struct BallData
