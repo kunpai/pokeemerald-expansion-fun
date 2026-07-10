@@ -3012,17 +3012,22 @@ static void ChangeBoxMonOT(struct BoxPokemon *boxMon, const u8 *otName, u8 otGen
     EncryptBoxMon(boxMon);
 }
 
+// Default level threshold for non-level-based evolutions (item, trade, etc.)
+// If a trainer has a Delcatty (Moon Stone evo) at level 10, it becomes Skitty.
+#define NON_LEVEL_EVO_THRESHOLD 25
+
 // Returns the level-appropriate pre-evolution for a species.
-// If a Pokémon is below the EVO_LEVEL threshold that would produce
-// the given species, it recursively de-evolves to find the right form.
-// e.g. Level 10 Swellow -> Taillow (Taillow evolves at 22)
+// For EVO_LEVEL: uses the actual evolution level as threshold.
+// For other methods (EVO_ITEM, EVO_TRADE, etc.): uses NON_LEVEL_EVO_THRESHOLD.
+// Recursively de-evolves for multi-stage chains.
+// e.g. Level 10 Swellow -> Taillow, Level 10 Delcatty -> Skitty
 enum Species GetAppropriateSpeciesForLevel(enum Species species, u8 level)
 {
     s32 i, j;
     enum Species preEvo = SPECIES_NONE;
     u16 evoLevel = 0;
 
-    // Search all species to find which one evolves into 'species' via EVO_LEVEL
+    // Search all species to find which one evolves into 'species'
     for (i = SPECIES_BULBASAUR; i < NUM_SPECIES; i++)
     {
         if (!IsSpeciesEnabled(i))
@@ -3034,19 +3039,29 @@ enum Species GetAppropriateSpeciesForLevel(enum Species species, u8 level)
 
         for (j = 0; evolutions[j].method != EVOLUTIONS_END; j++)
         {
-            if (evolutions[j].method == EVO_LEVEL
-             && SanitizeSpeciesId(evolutions[j].targetSpecies) == species)
-            {
-                preEvo = i;
+            if (SanitizeSpeciesId(evolutions[j].targetSpecies) != species)
+                continue;
+
+            // Skip EVO_NONE entries (used for regional form offspring)
+            if (evolutions[j].method == EVO_NONE)
+                continue;
+
+            preEvo = i;
+
+            // For level-based evolutions, use the actual level threshold
+            if (evolutions[j].method == EVO_LEVEL)
                 evoLevel = evolutions[j].param;
-                break;
-            }
+            else
+                // For item/trade/other evolutions, use a fixed threshold
+                evoLevel = NON_LEVEL_EVO_THRESHOLD;
+
+            break;
         }
         if (preEvo != SPECIES_NONE)
             break;
     }
 
-    // If no EVO_LEVEL pre-evolution exists, the species is fine as-is
+    // If no pre-evolution exists, the species is fine as-is
     if (preEvo == SPECIES_NONE)
         return species;
 
