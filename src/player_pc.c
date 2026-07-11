@@ -30,12 +30,14 @@
 #include "window.h"
 #include "menu_specialized.h"
 #include "constants/layouts.h"
+#include "script_pokemon_util.h"
 
 // Top level PC menu options
 enum {
     MENU_ITEMSTORAGE,
     MENU_MAILBOX,
     MENU_DECORATION,
+    MENU_HEAL_PARTY,
     MENU_TURNOFF
 };
 
@@ -101,6 +103,7 @@ static void Mailbox_MailOptionsProcessInput(u8);
 static void PlayerPC_ItemStorage(u8);
 static void PlayerPC_Mailbox(u8);
 static void PlayerPC_Decoration(u8);
+static void PlayerPC_HealParty(u8);
 static void PlayerPC_TurnOff(u8);
 
 static void Mailbox_DoMailMoveToBag(u8);
@@ -191,6 +194,7 @@ static const struct MenuAction sPlayerPCMenuActions[] =
     [MENU_ITEMSTORAGE] = { COMPOUND_STRING("ITEM STORAGE"), {PlayerPC_ItemStorage} },
     [MENU_MAILBOX]     = { sText_Mailbox,                   {PlayerPC_Mailbox} },
     [MENU_DECORATION]  = { COMPOUND_STRING("DECORATION"),   {PlayerPC_Decoration} },
+    [MENU_HEAL_PARTY]  = { COMPOUND_STRING("HEAL PARTY"),   {PlayerPC_HealParty} },
     [MENU_TURNOFF]     = { COMPOUND_STRING("TURN OFF"),     {PlayerPC_TurnOff} }
 };
 
@@ -199,6 +203,7 @@ static const u8 sBedroomPC_OptionOrder[] =
     MENU_ITEMSTORAGE,
     MENU_MAILBOX,
     MENU_DECORATION,
+    MENU_HEAL_PARTY,
     MENU_TURNOFF
 };
 #define NUM_BEDROOM_PC_OPTIONS ARRAY_COUNT(sBedroomPC_OptionOrder)
@@ -207,6 +212,7 @@ static const u8 sPlayerPC_OptionOrder[] =
 {
     MENU_ITEMSTORAGE,
     MENU_MAILBOX,
+    MENU_HEAL_PARTY,
     MENU_TURNOFF
 };
 #define NUM_PLAYER_PC_OPTIONS ARRAY_COUNT(sPlayerPC_OptionOrder)
@@ -504,6 +510,13 @@ static void PlayerPC_TurnOff(u8 taskId)
         ScriptContext_Enable();
     }
     DestroyTask(taskId);
+}
+
+static void PlayerPC_HealParty(u8 taskId)
+{
+    HealPlayerParty();
+    PlaySE(SE_USE_ITEM);
+    DisplayItemMessageOnField(taskId, COMPOUND_STRING("The party was fully healed!"), ReshowPlayerPC);
 }
 
 static void InitItemStorageMenu(u8 taskId, u8 var)
