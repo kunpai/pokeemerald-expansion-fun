@@ -471,3 +471,55 @@ PetalburgWoods_Text_TrainerTipsPP:
 	.string "If a POKéMON runs out of PP, it must be\n"
 	.string "taken to a POKéMON CENTER.$"
 
+PetalburgWoods_EventScript_Erika::
+	lock
+	faceplayer
+	goto_if_set FLAG_DEFEATED_KANTO_ERIKA, PetalburgWoods_EventScript_ErikaDefeated
+	msgbox PetalburgWoods_Text_ErikaIntro, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, PetalburgWoods_EventScript_ErikaBattle
+	msgbox PetalburgWoods_Text_ErikaDecline, MSGBOX_DEFAULT
+	release
+	end
+
+PetalburgWoods_EventScript_ErikaBattle::
+	msgbox PetalburgWoods_Text_ErikaPreBattle, MSGBOX_DEFAULT
+	trainerbattle_no_intro TRAINER_LEADER_ERIKA, PetalburgWoods_Text_ErikaDefeat
+	setflag FLAG_DEFEATED_KANTO_ERIKA
+	giveitem ITEM_MIRACLE_SEED
+	msgbox PetalburgWoods_Text_ErikaRewardExplain, MSGBOX_DEFAULT
+	release
+	end
+
+PetalburgWoods_EventScript_ErikaDefeated::
+	msgbox PetalburgWoods_Text_ErikaDefeatedPost, MSGBOX_DEFAULT
+	release
+	end
+
+PetalburgWoods_Text_ErikaIntro:
+	.string "Hello... I am ERIKA, the GYM LEADER of\n"
+	.string "Celadon City in the KANTO region.\p"
+	.string "Petalburg Woods has such lovely trees\n"
+	.string "and sweet fragrance of grass...\p"
+	.string "Would you care for a peaceful battle\n"
+	.string "amongst the flowers?$"
+
+PetalburgWoods_Text_ErikaDecline:
+	.string "Oh, I see. A gentle stroll in the woods\n"
+	.string "is wonderful too.$"
+
+PetalburgWoods_Text_ErikaPreBattle:
+	.string "Let us begin then... softly.$"
+
+PetalburgWoods_Text_ErikaDefeat:
+	.string "Oh my! You are a very talented\n"
+	.string "TRAINER indeed.$"
+
+PetalburgWoods_Text_ErikaRewardExplain:
+	.string "That MIRACLE SEED boosts the power of\n"
+	.string "GRASS-type moves.\p"
+	.string "May it help your POKéMON grow.$"
+
+PetalburgWoods_Text_ErikaDefeatedPost:
+	.string "The nature in Hoenn is so wild and free.\n"
+	.string "It inspires my floral arrangements.$"
+

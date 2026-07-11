@@ -56,3 +56,51 @@ NewMauville_Entrance_Text_UsedBasementKey:
 	.string "{PLAYER} used the BASEMENT KEY.\p"
 	.string "The door opened!$"
 
+NewMauville_Entrance_EventScript_LtSurge::
+	lock
+	faceplayer
+	goto_if_set FLAG_DEFEATED_KANTO_SURGE, NewMauville_Entrance_EventScript_LtSurgeDefeated
+	msgbox NewMauville_Entrance_Text_LtSurgeIntro, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, NewMauville_Entrance_EventScript_LtSurgeBattle
+	msgbox NewMauville_Entrance_Text_LtSurgeDecline, MSGBOX_DEFAULT
+	release
+	end
+
+NewMauville_Entrance_EventScript_LtSurgeBattle::
+	msgbox NewMauville_Entrance_Text_LtSurgePreBattle, MSGBOX_DEFAULT
+	trainerbattle_no_intro TRAINER_LEADER_LT_SURGE, NewMauville_Entrance_Text_LtSurgeDefeat
+	setflag FLAG_DEFEATED_KANTO_SURGE
+	giveitem ITEM_MAGNET
+	msgbox NewMauville_Entrance_Text_LtSurgeRewardExplain, MSGBOX_DEFAULT
+	release
+	end
+
+NewMauville_Entrance_EventScript_LtSurgeDefeated::
+	msgbox NewMauville_Entrance_Text_LtSurgeDefeatedPost, MSGBOX_DEFAULT
+	release
+	end
+
+NewMauville_Entrance_Text_LtSurgeIntro:
+	.string "Hey there, kid! I'm LT. SURGE, the Lightning\n"
+	.string "American! KANTO's electric GYM LEADER!\p"
+	.string "I heard this generator place here is full\n"
+	.string "of raw power! I love it!\p"
+	.string "You think your team's got enough spark?\n"
+	.string "Let's go, baby! Battle me!$"
+
+NewMauville_Entrance_Text_LtSurgeDecline:
+	.string "No guts, huh? In the army, we don't retreat!$"
+
+NewMauville_Entrance_Text_LtSurgePreBattle:
+	.string "Ten-hut! You're in for a shock!$"
+
+NewMauville_Entrance_Text_LtSurgeDefeat:
+	.string "Whoa, kid! You really zapped me!$"
+
+NewMauville_Entrance_Text_LtSurgeRewardExplain:
+	.string "That MAGNET boosts the power of ELECTRIC-\n"
+	.string "type moves. Carry it with pride!$"
+
+NewMauville_Entrance_Text_LtSurgeDefeatedPost:
+	.string "New Mauville is a shocker of a place.\n"
+	.string "I might hang around here a bit more!$"

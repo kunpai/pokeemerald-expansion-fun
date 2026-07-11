@@ -562,3 +562,55 @@ Route109_Text_TrainerTipsSign:
 	.string "always have identical stats.\p"
 	.string "POKéMON raised by TRAINERS are said\n"
 	.string "to grow stronger than wild POKéMON.$"
+
+Route109_EventScript_Misty::
+	lock
+	faceplayer
+	goto_if_set FLAG_DEFEATED_KANTO_MISTY, Route109_EventScript_MistyDefeated
+	msgbox Route109_Text_MistyIntro, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, Route109_EventScript_MistyBattle
+	msgbox Route109_Text_MistyDecline, MSGBOX_DEFAULT
+	release
+	end
+
+Route109_EventScript_MistyBattle::
+	msgbox Route109_Text_MistyPreBattle, MSGBOX_DEFAULT
+	trainerbattle_no_intro TRAINER_LEADER_MISTY, Route109_Text_MistyDefeat
+	setflag FLAG_DEFEATED_KANTO_MISTY
+	giveitem ITEM_MYSTIC_WATER
+	msgbox Route109_Text_MistyRewardExplain, MSGBOX_DEFAULT
+	release
+	end
+
+Route109_EventScript_MistyDefeated::
+	msgbox Route109_Text_MistyDefeatedPost, MSGBOX_DEFAULT
+	release
+	end
+
+Route109_Text_MistyIntro:
+	.string "I am MISTY, the GYM LEADER of Cerulean\n"
+	.string "City in the KANTO region!\p"
+	.string "I love water-type POKéMON, so I just\n"
+	.string "had to check out Hoenn's beautiful sea.\p"
+	.string "Are you a strong TRAINER?\n"
+	.string "Let's see if you can handle my team!$"
+
+Route109_Text_MistyDecline:
+	.string "Aww, really? I was looking forward to\n"
+	.string "a splashy battle!$"
+
+Route109_Text_MistyPreBattle:
+	.string "Prepare to be washed away!$"
+
+Route109_Text_MistyDefeat:
+	.string "Wow! You're an incredibly skilled\n"
+	.string "TRAINER!$"
+
+Route109_Text_MistyRewardExplain:
+	.string "That MYSTIC WATER boosts the power of\n"
+	.string "WATER-type moves.\p"
+	.string "It suits you perfectly!$"
+
+Route109_Text_MistyDefeatedPost:
+	.string "The sea breeze here is so refreshing.\n"
+	.string "I love Slateport's beach!$"
