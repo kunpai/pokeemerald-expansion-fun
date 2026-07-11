@@ -1350,3 +1350,41 @@ SlateportCity_Text_TakingBattleTentChallenge:
 	.string "After all, a tough TRAINER is\n"
 	.string "the perfect fit for the BATTLE TENT!\p"
 	.string "Give it your best effort!$"
+
+SlateportCity_EventScript_AquaBallMerchant::
+	lock
+	faceplayer
+	message SlateportCity_Text_AquaBallMerchant_Intro
+	waitmessage
+	pokemart SlateportCity_Pokemart_AquaBallMerchant
+	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
+	release
+	end
+
+	.align 2
+SlateportCity_Pokemart_AquaBallMerchant:
+	.2byte ITEM_AQUA_BALL
+	.2byte ITEM_NONE
+
+SlateportCity_Text_AquaBallMerchant_Intro:
+	.string "AQUA GRUNT: Shh… Keep it quiet.\n"
+	.string "Here is the special ball for teammates.$"
+
+SlateportCity_EventScript_MagmaBallMerchant::
+	lock
+	faceplayer
+	message SlateportCity_Text_MagmaBallMerchant_Intro
+	waitmessage
+	pokemart SlateportCity_Pokemart_MagmaBallMerchant
+	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
+	release
+	end
+
+	.align 2
+SlateportCity_Pokemart_MagmaBallMerchant:
+	.2byte ITEM_MAGMA_BALL
+	.2byte ITEM_NONE
+
+SlateportCity_Text_MagmaBallMerchant_Intro:
+	.string "MAGMA GRUNT: Shh… Keep it quiet.\n"
+	.string "Here is the special ball for teammates.$"

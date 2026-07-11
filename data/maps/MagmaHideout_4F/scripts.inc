@@ -51,7 +51,15 @@ MagmaHideout_4F_EventScript_Maxie::
 	delay 30
 	applymovement LOCALID_MAGMA_HIDEOUT_4F_MAXIE, Common_Movement_FacePlayer
 	waitmovement 0
+	goto_if_set FLAG_JOINED_MAGMA, MagmaHideout_4F_EventScript_MaxieTraitor
 	msgbox MagmaHideout_4F_Text_MaxieOhItWasYou, MSGBOX_DEFAULT
+	goto MagmaHideout_4F_EventScript_MaxieBattle
+
+MagmaHideout_4F_EventScript_MaxieTraitor::
+	msgbox MagmaHideout_4F_Text_MaxieTraitorIntro, MSGBOX_DEFAULT
+	goto MagmaHideout_4F_EventScript_MaxieBattle
+
+MagmaHideout_4F_EventScript_MaxieBattle::
 	closemessage
 	trainerbattle_no_intro TRAINER_MAXIE_MAGMA_HIDEOUT, MagmaHideout_4F_Text_MaxieDefeat
 	msgbox MagmaHideout_4F_Text_MaxieImGoingAfterGroudon, MSGBOX_DEFAULT
@@ -120,8 +128,14 @@ MagmaHideout_4F_EventScript_Grunt13::
 	end
 
 MagmaHideout_4F_EventScript_Tabitha::
+	goto_if_set FLAG_JOINED_MAGMA, MagmaHideout_4F_EventScript_TabithaTraitor
 	trainerbattle_single TRAINER_TABITHA_MAGMA_HIDEOUT, MagmaHideout_4F_Text_TabithaIntro, MagmaHideout_4F_Text_TabithaDefeat
 	msgbox MagmaHideout_4F_Text_TabithaPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+MagmaHideout_4F_EventScript_TabithaTraitor::
+	trainerbattle_single TRAINER_TABITHA_MAGMA_HIDEOUT, MagmaHideout_4F_Text_TabithaTraitorIntro, MagmaHideout_4F_Text_TabithaTraitorDefeat
+	msgbox MagmaHideout_4F_Text_TabithaTraitorPostBattle, MSGBOX_AUTOCLOSE
 	end
 
 MagmaHideout_4F_Text_Grunt11Intro:
@@ -221,3 +235,23 @@ MagmaHideout_4F_Text_MaxieImGoingAfterGroudon:
 	.string "any need for this blasted volcano.\p"
 	.string "I am going after GROUDON, so this\n"
 	.string "is where we part!$"
+
+MagmaHideout_4F_Text_TabithaTraitorIntro:
+	.string "TABITHA: You! You joined TEAM MAGMA,\n"
+	.string "yet you stand against us here?\p"
+	.string "You absolute traitor!\n"
+	.string "I'll incinerate you for your betrayal!$"
+
+MagmaHideout_4F_Text_TabithaTraitorDefeat:
+	.string "Urgh... Beaten by a traitor...$"
+
+MagmaHideout_4F_Text_TabithaTraitorPostBattle:
+	.string "Do you think the BOSS will forgive you?\n"
+	.string "You're finished!$"
+
+MagmaHideout_4F_Text_MaxieTraitorIntro:
+	.string "MAXIE: Oh, so it was you, the traitor?!\p"
+	.string "You joined our ranks back at MT. CHIMNEY,\n"
+	.string "yet you stand in my way now?!\p"
+	.string "I will punish you myself!$"
+

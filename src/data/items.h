@@ -15836,7 +15836,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_MAGMA_BALL] =
     {
         .name = ITEM_NAME("Magma Ball"),
-        .price = 1000,
+        .price = 1200,
         .description = COMPOUND_STRING(
             "A Poké Ball that\n"
             "catches a trainer's\n"
@@ -15852,7 +15852,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_AQUA_BALL] =
     {
         .name = ITEM_NAME("Aqua Ball"),
-        .price = 1000,
+        .price = 1200,
         .description = COMPOUND_STRING(
             "A Poké Ball that\n"
             "catches a trainer's\n"

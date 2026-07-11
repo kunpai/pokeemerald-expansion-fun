@@ -23,8 +23,15 @@ AquaHideout_B2F_EventScript_MattNoticePlayer::
 	end
 
 AquaHideout_B2F_EventScript_Matt::
+	goto_if_set FLAG_JOINED_AQUA, AquaHideout_B2F_EventScript_MattTraitor
 	trainerbattle_single TRAINER_MATT, AquaHideout_B2F_Text_MattIntro, AquaHideout_B2F_Text_MattDefeat, AquaHideout_B2F_EventScript_SubmarineEscape
 	msgbox AquaHideout_B2F_Text_MattPostBattle, MSGBOX_DEFAULT
+	release
+	end
+
+AquaHideout_B2F_EventScript_MattTraitor::
+	trainerbattle_single TRAINER_MATT, AquaHideout_B2F_Text_MattTraitorIntro, AquaHideout_B2F_Text_MattTraitorDefeat, AquaHideout_B2F_EventScript_SubmarineEscape
+	msgbox AquaHideout_B2F_Text_MattTraitorPostBattle, MSGBOX_DEFAULT
 	release
 	end
 
@@ -157,3 +164,19 @@ AquaHideout_B2F_Text_Grunt8Defeat:
 AquaHideout_B2F_Text_Grunt8PostBattle:
 	.string "I'll have to learn about how I can\n"
 	.string "battle more effectively…$"
+
+AquaHideout_B2F_Text_MattTraitorIntro:
+	.string "MATT: Hey, I remember you!\n"
+	.string "You joined TEAM AQUA back in SLATEPORT!\p"
+	.string "But now you're trying to stop us?\n"
+	.string "You absolute traitor!\p"
+	.string "I'll teach you what happens to people\n"
+	.string "who betray the BOSS!$"
+
+AquaHideout_B2F_Text_MattTraitorDefeat:
+	.string "No way! Beaten by a traitor?!$"
+
+AquaHideout_B2F_Text_MattTraitorPostBattle:
+	.string "You might have beaten me, but the BOSS\n"
+	.string "is already in the submarine! Traitor!$"
+

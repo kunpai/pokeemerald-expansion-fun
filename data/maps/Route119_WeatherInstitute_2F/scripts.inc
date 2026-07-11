@@ -39,8 +39,14 @@ Route119_WeatherInstitute_2F_EventScript_Grunt3::
 	end
 
 Route119_WeatherInstitute_2F_EventScript_Shelly::
+	goto_if_set FLAG_JOINED_AQUA, Route119_WeatherInstitute_2F_EventScript_ShellyTraitor
 	trainerbattle_single TRAINER_SHELLY_WEATHER_INSTITUTE, Route119_WeatherInstitute_2F_Text_ShellyIntro, Route119_WeatherInstitute_2F_Text_ShellyDefeat, Route119_WeatherInstitute_2F_EventScript_ShellyDefeated
 	msgbox Route119_WeatherInstitute_2F_Text_ShellyPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route119_WeatherInstitute_2F_EventScript_ShellyTraitor::
+	trainerbattle_single TRAINER_SHELLY_WEATHER_INSTITUTE, Route119_WeatherInstitute_2F_Text_ShellyTraitorIntro, Route119_WeatherInstitute_2F_Text_ShellyTraitorDefeat, Route119_WeatherInstitute_2F_EventScript_ShellyDefeated
+	msgbox Route119_WeatherInstitute_2F_Text_ShellyTraitorPostBattle, MSGBOX_AUTOCLOSE
 	end
 
 Route119_WeatherInstitute_2F_EventScript_ShellyDefeated::
@@ -323,4 +329,21 @@ Route119_WeatherInstitute_2F_Text_NoAbnormalWeather:
 	.string "no longer being reported.\p"
 	.string "The occasional rainfall is a blessing,\n"
 	.string "really.$"
+
+Route119_WeatherInstitute_2F_Text_ShellyTraitorIntro:
+	.string "SHELLY: Ahahahaha!\p"
+	.string "You... you're that recruit who joined\n"
+	.string "us in SLATEPORT!\p"
+	.string "And now you stand against us here?\n"
+	.string "You absolute traitor!\p"
+	.string "I'll make you pay for your betrayal!$"
+
+Route119_WeatherInstitute_2F_Text_ShellyTraitorDefeat:
+	.string "You're disgustingly strong for a\n"
+	.string "traitor...$"
+
+Route119_WeatherInstitute_2F_Text_ShellyTraitorPostBattle:
+	.string "How could you betray ARCHIE's vision?\n"
+	.string "You won't get away with this!$"
+
 

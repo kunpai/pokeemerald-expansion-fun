@@ -53,6 +53,9 @@ SlateportCity_OceanicMuseum_2F_EventScript_CaptStern::
 	applymovement LOCALID_OCEANIC_MUSEUM_2F_ARCHIE, SlateportCity_OceanicMuseum_2F_Movement_ArchieApproachPlayer
 	waitmovement 0
 	msgbox SlateportCity_OceanicMuseum_2F_Text_ArchieWarning, MSGBOX_DEFAULT
+	msgbox SlateportCity_OceanicMuseum_2F_Text_JoinAquaQuestion, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, SlateportCity_OceanicMuseum_2F_EventScript_JoinAqua
+	msgbox SlateportCity_OceanicMuseum_2F_Text_DeclinedAqua, MSGBOX_DEFAULT
 	closemessage
 	savebgm MUS_DUMMY
 	fadedefaultbgm
@@ -333,15 +336,7 @@ SlateportCity_OceanicMuseum_2F_Text_ArchieWarning:
 	.string "So, TEAM AQUA is dedicated to\n"
 	.string "the expansion of the sea.\p"
 	.string "Don't you agree? What we are doing\n"
-	.string "is a magnificent undertaking.\p"
-	.string "Ah, fine…\n"
-	.string "You're still too young to understand\l"
-	.string "our noble objective.\p"
-	.string "But, I warn you, don't even consider\n"
-	.string "interfering with our plans again.\p"
-	.string "The consequences will cost you\n"
-	.string "dearly!\p"
-	.string "And don't you forget it!$"
+	.string "is a magnificent undertaking.$"
 
 SlateportCity_OceanicMuseum_2F_Text_SternThankYouForSavingUs:
 	.string "CAPT. STERN: You're…\n"
@@ -433,3 +428,42 @@ SlateportCity_OceanicMuseum_2F_Text_SSAnneReplica:
 	.string "“S.S. ANNE\p"
 	.string "“A replica of the luxury liner that\n"
 	.string "circles the globe.”$"
+
+SlateportCity_OceanicMuseum_2F_EventScript_JoinAqua::
+	setflag FLAG_JOINED_AQUA
+	clearflag FLAG_JOINED_MAGMA
+	clearflag FLAG_HIDE_AQUA_GRUNT_MERCHANT
+	setflag FLAG_HIDE_MAGMA_GRUNT_MERCHANT
+	msgbox SlateportCity_OceanicMuseum_2F_Text_ArchieWelcome, MSGBOX_DEFAULT
+	closemessage
+	savebgm MUS_DUMMY
+	fadedefaultbgm
+	fadescreen FADE_TO_BLACK
+	removeobject LOCALID_OCEANIC_MUSEUM_2F_ARCHIE
+	removeobject LOCALID_OCEANIC_MUSEUM_2F_GRUNT_1
+	removeobject LOCALID_OCEANIC_MUSEUM_2F_GRUNT_2
+	fadescreen FADE_FROM_BLACK
+	delay 30
+	setflag FLAG_HIDE_SLATEPORT_CITY_OCEANIC_MUSEUM_AQUA_GRUNTS
+	setvar VAR_SLATEPORT_MUSEUM_1F_STATE, 2
+	releaseall
+	end
+
+SlateportCity_OceanicMuseum_2F_Text_JoinAquaQuestion:
+	.string "Would you like to join TEAM AQUA?$"
+
+SlateportCity_OceanicMuseum_2F_Text_ArchieWelcome:
+	.string "ARCHIE: Fufufu… I like your attitude.\n"
+	.string "You are now a member of TEAM AQUA!\p"
+	.string "We will meet again, recruit.\n"
+	.string "Do not disappoint us.$"
+
+SlateportCity_OceanicMuseum_2F_Text_DeclinedAqua:
+	.string "Ah, fine…\n"
+	.string "You're still too young to understand\l"
+	.string "our noble objective.\p"
+	.string "But, I warn you, don't even consider\n"
+	.string "interfering with our plans again.\p"
+	.string "The consequences will cost you\n"
+	.string "dearly!\p"
+	.string "And don't you forget it!$"

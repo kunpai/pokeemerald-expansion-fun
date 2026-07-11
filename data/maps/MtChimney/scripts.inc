@@ -42,8 +42,29 @@ MtChimney_EventScript_Maxie::
 	waitmovement 0
 	applymovement LOCALID_MT_CHIMNEY_MAXIE, Common_Movement_Delay48
 	waitmovement 0
+	goto_if_set FLAG_JOINED_AQUA, MtChimney_EventScript_MaxieAquaTraitor
 	msgbox MtChimney_Text_MaxieIntro, MSGBOX_DEFAULT
+	msgbox MtChimney_Text_JoinMagmaQuestion, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, MtChimney_EventScript_JoinMagma
+	msgbox MtChimney_Text_DeclinedMagma, MSGBOX_DEFAULT
 	trainerbattle_no_intro TRAINER_MAXIE_MT_CHIMNEY, MtChimney_Text_MaxieDefeat
+	goto MtChimney_EventScript_MaxieAfterBattle
+
+MtChimney_EventScript_MaxieAquaTraitor::
+	msgbox MtChimney_Text_MaxieAquaTraitorIntro, MSGBOX_DEFAULT
+	trainerbattle_no_intro TRAINER_MAXIE_MT_CHIMNEY, MtChimney_Text_MaxieDefeat
+	goto MtChimney_EventScript_MaxieAfterBattle
+
+MtChimney_EventScript_JoinMagma::
+	setflag FLAG_JOINED_MAGMA
+	clearflag FLAG_JOINED_AQUA
+	clearflag FLAG_HIDE_MAGMA_GRUNT_MERCHANT
+	setflag FLAG_HIDE_AQUA_GRUNT_MERCHANT
+	msgbox MtChimney_Text_MaxieWelcomeTestStrength, MSGBOX_DEFAULT
+	trainerbattle_no_intro TRAINER_MAXIE_MT_CHIMNEY, MtChimney_Text_MaxieDefeat
+	goto MtChimney_EventScript_MaxieAfterBattle
+
+MtChimney_EventScript_MaxieAfterBattle::
 	msgbox MtChimney_Text_MaxieYouHaventSeenLastOfMagma, MSGBOX_DEFAULT
 	closemessage
 	delay 30
@@ -851,3 +872,24 @@ MtChimney_Text_SawyerRematchDefeat:
 MtChimney_Text_SawyerPostRematch:
 	.string "Actually, it really is hot here.\n"
 	.string "I'm overdressed for these parts.$"
+
+MtChimney_Text_JoinMagmaQuestion:
+	.string "Will you join TEAM MAGMA in our quest?$"
+
+MtChimney_Text_DeclinedMagma:
+	.string "MAXIE: Humph! Then you are an enemy.\n"
+	.string "Prepare to face the consequences!$"
+
+MtChimney_Text_MaxieWelcomeTestStrength:
+	.string "MAXIE: Fufufu… Excellent. You are\n"
+	.string "now one of us!\p"
+	.string "However, to prove you are worthy\n"
+	.string "of our ranks, you must face me in battle!\l"
+	.string "Show me your power!$"
+
+MtChimney_Text_MaxieAquaTraitorIntro:
+	.string "MAXIE: Wait… You smell of the ocean!\n"
+	.string "You've joined TEAM AQUA!\p"
+	.string "There is no room for compromise.\n"
+	.string "Prepare to be crushed!$"
+

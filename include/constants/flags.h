@@ -57,10 +57,10 @@
 #define FLAG_GIFT_STARTER_GEN8_GEN9    0x23
 #define FLAG_ORAS_DOWSING    0x24 // Unused Flag
 #define FLAG_DEFEATED_PORTAL_NARUTO   0x25 // Unused Flag
-#define FLAG_UNUSED_0x026    0x26 // Unused Flag
-#define FLAG_UNUSED_0x027    0x27 // Unused Flag
-#define FLAG_UNUSED_0x028    0x28 // Unused Flag
-#define FLAG_UNUSED_0x029    0x29 // Unused Flag
+#define FLAG_JOINED_AQUA      0x26
+#define FLAG_JOINED_MAGMA     0x27
+#define FLAG_HIDE_AQUA_GRUNT_MERCHANT 0x28
+#define FLAG_HIDE_MAGMA_GRUNT_MERCHANT 0x29
 #define FLAG_UNUSED_0x02A    0x2A // Unused Flag
 #define FLAG_UNUSED_0x02B    0x2B // Unused Flag
 #define FLAG_UNUSED_0x02C    0x2C // Unused Flag
