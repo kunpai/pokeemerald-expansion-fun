@@ -525,3 +525,55 @@ RusturfTunnel_Text_MikePostBattle:
 	.string "protect POKéMON, right?\l"
 	.string "There's a feel-good story!$"
 
+RusturfTunnel_EventScript_Giovanni::
+	lock
+	faceplayer
+	goto_if_set FLAG_DEFEATED_KANTO_GIOVANNI, RusturfTunnel_EventScript_GiovanniDefeated
+	msgbox RusturfTunnel_Text_GiovanniIntro, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, RusturfTunnel_EventScript_GiovanniBattle
+	msgbox RusturfTunnel_Text_GiovanniDecline, MSGBOX_DEFAULT
+	release
+	end
+
+RusturfTunnel_EventScript_GiovanniBattle::
+	msgbox RusturfTunnel_Text_GiovanniPreBattle, MSGBOX_DEFAULT
+	trainerbattle_no_intro TRAINER_LEADER_GIOVANNI, RusturfTunnel_Text_GiovanniDefeat
+	setflag FLAG_DEFEATED_KANTO_GIOVANNI
+	giveitem ITEM_SOFT_SAND
+	msgbox RusturfTunnel_Text_GiovanniRewardExplain, MSGBOX_DEFAULT
+	release
+	end
+
+RusturfTunnel_EventScript_GiovanniDefeated::
+	msgbox RusturfTunnel_Text_GiovanniDefeatedPost, MSGBOX_DEFAULT
+	release
+	end
+
+RusturfTunnel_Text_GiovanniIntro:
+	.string "I am GIOVANNI, the leader of TEAM ROCKET\n"
+	.string "and GYM LEADER of Viridian City.\p"
+	.string "I have retreated to this quiet tunnel to\n"
+	.string "regroup and gather my thoughts.\p"
+	.string "You... you have the eyes of a formidable\n"
+	.string "opponent. Will you battle me?$"
+
+RusturfTunnel_Text_GiovanniDecline:
+	.string "Humph. Wise choice. A battle with me is\n"
+	.string "not something to take lightly.$"
+
+RusturfTunnel_Text_GiovanniPreBattle:
+	.string "Prepare to face the power of the earth!$"
+
+RusturfTunnel_Text_GiovanniDefeat:
+	.string "What?! Me, defeated by a child again?!$"
+
+RusturfTunnel_Text_GiovanniRewardExplain:
+	.string "That SOFT SAND boosts the power of\n"
+	.string "GROUND-type moves.\p"
+	.string "Do not underestimate the soil!$"
+
+RusturfTunnel_Text_GiovanniDefeatedPost:
+	.string "TEAM ROCKET may have disbanded, but my\n"
+	.string "strength remains absolute. We shall see.$"
+
+

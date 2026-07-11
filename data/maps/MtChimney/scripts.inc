@@ -893,3 +893,54 @@ MtChimney_Text_MaxieAquaTraitorIntro:
 	.string "There is no room for compromise.\n"
 	.string "Prepare to be crushed!$"
 
+MtChimney_EventScript_Blaine::
+	lock
+	faceplayer
+	goto_if_set FLAG_DEFEATED_KANTO_BLAINE, MtChimney_EventScript_BlaineDefeated
+	msgbox MtChimney_Text_BlaineIntro, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, MtChimney_EventScript_BlaineBattle
+	msgbox MtChimney_Text_BlaineDecline, MSGBOX_DEFAULT
+	release
+	end
+
+MtChimney_EventScript_BlaineBattle::
+	msgbox MtChimney_Text_BlainePreBattle, MSGBOX_DEFAULT
+	trainerbattle_no_intro TRAINER_LEADER_BLAINE, MtChimney_Text_BlaineDefeat
+	setflag FLAG_DEFEATED_KANTO_BLAINE
+	giveitem ITEM_CHARCOAL
+	msgbox MtChimney_Text_BlaineRewardExplain, MSGBOX_DEFAULT
+	release
+	end
+
+MtChimney_EventScript_BlaineDefeated::
+	msgbox MtChimney_Text_BlaineDefeatedPost, MSGBOX_DEFAULT
+	release
+	end
+
+MtChimney_Text_BlaineIntro:
+	.string "Hah! I am BLAINE, the hot-headed GYM\n"
+	.string "LEADER of Cinnabar Island in KANTO!\p"
+	.string "This active volcano has got my spirit\n"
+	.string "burning hotter than ever!\p"
+	.string "Do you think you can handle my fire?\n"
+	.string "You better have Burn Heal ready! Battle?$"
+
+MtChimney_Text_BlaineDecline:
+	.string "Fuzz! You don't want to get burned?$"
+
+MtChimney_Text_BlainePreBattle:
+	.string "Let's burn it up!$"
+
+MtChimney_Text_BlaineDefeat:
+	.string "Wow! I've been completely burned out!$"
+
+MtChimney_Text_BlaineRewardExplain:
+	.string "That CHARCOAL boosts the power of\n"
+	.string "FIRE-type moves.\p"
+	.string "Keep your fire burning bright!$"
+
+MtChimney_Text_BlaineDefeatedPost:
+	.string "Mt. Chimney is a great volcano.\n"
+	.string "It reminds me of my beloved Cinnabar!$"
+
+

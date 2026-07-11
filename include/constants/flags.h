@@ -65,10 +65,10 @@
 #define FLAG_DEFEATED_KANTO_MISTY   0x2B
 #define FLAG_DEFEATED_KANTO_SURGE   0x2C
 #define FLAG_DEFEATED_KANTO_ERIKA   0x2D
-#define FLAG_UNUSED_0x02E    0x2E // Unused Flag
-#define FLAG_UNUSED_0x02F    0x2F // Unused Flag
-#define FLAG_UNUSED_0x030    0x30 // Unused Flag
-#define FLAG_UNUSED_0x031    0x31 // Unused Flag
+#define FLAG_DEFEATED_KANTO_KOGA      0x2E
+#define FLAG_DEFEATED_KANTO_SABRINA   0x2F
+#define FLAG_DEFEATED_KANTO_BLAINE    0x30
+#define FLAG_DEFEATED_KANTO_GIOVANNI  0x31
 #define FLAG_UNUSED_0x032    0x32 // Unused Flag
 #define FLAG_UNUSED_0x033    0x33 // Unused Flag
 #define FLAG_UNUSED_0x034    0x34 // Unused Flag
