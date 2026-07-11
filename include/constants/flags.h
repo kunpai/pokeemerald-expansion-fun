@@ -69,7 +69,7 @@
 #define FLAG_DEFEATED_KANTO_SABRINA   0x2F
 #define FLAG_DEFEATED_KANTO_BLAINE    0x30
 #define FLAG_DEFEATED_KANTO_GIOVANNI  0x31
-#define FLAG_UNUSED_0x032    0x32 // Unused Flag
+#define FLAG_RECEIVED_SHINY_CHARM    0x32
 #define FLAG_UNUSED_0x033    0x33 // Unused Flag
 #define FLAG_UNUSED_0x034    0x34 // Unused Flag
 #define FLAG_UNUSED_0x035    0x35 // Unused Flag

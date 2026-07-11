@@ -1388,3 +1388,72 @@ SlateportCity_Pokemart_MagmaBallMerchant:
 SlateportCity_Text_MagmaBallMerchant_Intro:
 	.string "MAGMA GRUNT: Shh… Keep it quiet.\n"
 	.string "Here is the special ball for teammates.$"
+
+SlateportCity_EventScript_KantoTrophyCollector::
+	lock
+	faceplayer
+	goto_if_set FLAG_RECEIVED_SHINY_CHARM, SlateportCity_EventScript_KantoTrophyCollector_Received
+	setvar VAR_TEMP_1, 0
+	goto_if_unset FLAG_DEFEATED_KANTO_BROCK, SlateportCity_EventScript_KantoTrophyCollector_CheckMisty
+	addvar VAR_TEMP_1, 1
+SlateportCity_EventScript_KantoTrophyCollector_CheckMisty:
+	goto_if_unset FLAG_DEFEATED_KANTO_MISTY, SlateportCity_EventScript_KantoTrophyCollector_CheckSurge
+	addvar VAR_TEMP_1, 1
+SlateportCity_EventScript_KantoTrophyCollector_CheckSurge:
+	goto_if_unset FLAG_DEFEATED_KANTO_SURGE, SlateportCity_EventScript_KantoTrophyCollector_CheckErika
+	addvar VAR_TEMP_1, 1
+SlateportCity_EventScript_KantoTrophyCollector_CheckErika:
+	goto_if_unset FLAG_DEFEATED_KANTO_ERIKA, SlateportCity_EventScript_KantoTrophyCollector_CheckKoga
+	addvar VAR_TEMP_1, 1
+SlateportCity_EventScript_KantoTrophyCollector_CheckKoga:
+	goto_if_unset FLAG_DEFEATED_KANTO_KOGA, SlateportCity_EventScript_KantoTrophyCollector_CheckSabrina
+	addvar VAR_TEMP_1, 1
+SlateportCity_EventScript_KantoTrophyCollector_CheckSabrina:
+	goto_if_unset FLAG_DEFEATED_KANTO_SABRINA, SlateportCity_EventScript_KantoTrophyCollector_CheckBlaine
+	addvar VAR_TEMP_1, 1
+SlateportCity_EventScript_KantoTrophyCollector_CheckBlaine:
+	goto_if_unset FLAG_DEFEATED_KANTO_BLAINE, SlateportCity_EventScript_KantoTrophyCollector_CheckGiovanni
+	addvar VAR_TEMP_1, 1
+SlateportCity_EventScript_KantoTrophyCollector_CheckGiovanni:
+	goto_if_unset FLAG_DEFEATED_KANTO_GIOVANNI, SlateportCity_EventScript_KantoTrophyCollector_ReportProgress
+	addvar VAR_TEMP_1, 1
+
+SlateportCity_EventScript_KantoTrophyCollector_ReportProgress:
+	goto_if_eq VAR_TEMP_1, 8, SlateportCity_EventScript_KantoTrophyCollector_GiveReward
+	buffernumberstring STR_VAR_1, VAR_TEMP_1
+	msgbox SlateportCity_Text_KantoTrophyCollector_Progress, MSGBOX_DEFAULT
+	release
+	end
+
+SlateportCity_EventScript_KantoTrophyCollector_GiveReward::
+	msgbox SlateportCity_Text_KantoTrophyCollector_Congrats, MSGBOX_DEFAULT
+	giveitem ITEM_SHINY_CHARM
+	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
+	setflag FLAG_RECEIVED_SHINY_CHARM
+	release
+	end
+
+SlateportCity_EventScript_KantoTrophyCollector_Received::
+	msgbox SlateportCity_Text_KantoTrophyCollector_GoodLuck, MSGBOX_DEFAULT
+	release
+	end
+
+SlateportCity_Text_KantoTrophyCollector_Progress:
+	.string "Hello! I am researching strong KANTO\n"
+	.string "GYM LEADERS visiting Hoenn.\p"
+	.string "It seems there are 8 KANTO bosses\n"
+	.string "hidden in caves, woods, and mountains.\p"
+	.string "So far, you have defeated {STR_VAR_1} of them.\n"
+	.string "Defeat all 8, and I will reward you!$"
+
+SlateportCity_Text_KantoTrophyCollector_Congrats:
+	.string "Astonishing! You have tracked down and\n"
+	.string "defeated all 8 KANTO GYM LEADERS!\p"
+	.string "You are truly a master TRAINER.\n"
+	.string "Please, accept this special reward!$"
+
+SlateportCity_Text_KantoTrophyCollector_GoodLuck:
+	.string "That SHINY CHARM increases the chance\n"
+	.string "of encountering shiny POKéMON!\p"
+	.string "Best of luck on your travels!$"
+
